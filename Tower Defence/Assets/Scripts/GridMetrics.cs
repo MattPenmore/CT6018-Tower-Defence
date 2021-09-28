@@ -5,7 +5,7 @@ using UnityEngine;
 public static class GridMetrics
 {
     //Distance from center to corners
-    public const float cornerRadius = 0.1f;
+    public const float cornerRadius = 10f;
 
     //Distance from center to edge
     public const float edgeRadius = cornerRadius * 0.866025404f;

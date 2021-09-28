@@ -319,6 +319,7 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/VSSettingsProvider.ref.dll"
 "Assets/Scripts/CellMesh.cs"
+"Assets/Scripts/CellSelector.cs"
 "Assets/Scripts/GridCell.cs"
 "Assets/Scripts/GridMetrics.cs"
 "Assets/Scripts/HexGrid.cs"

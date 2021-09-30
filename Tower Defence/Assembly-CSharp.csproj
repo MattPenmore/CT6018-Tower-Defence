@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -56,11 +56,11 @@
     <Compile Include="Assets\Scripts\MainBase.cs" />
     <Compile Include="Assets\Scripts\CellSelector.cs" />
     <Compile Include="Assets\Scripts\CellMesh.cs" />
+    <Compile Include="Assets\Scripts\SpawnerButton.cs" />
     <Compile Include="Assets\Scripts\HexGrid.cs" />
     <Compile Include="Assets\Scripts\TowerButtons.cs" />
     <Compile Include="Assets\Scripts\GridMetrics.cs" />
     <Compile Include="Assets\Scripts\GridCell.cs" />
-    <Compile Include="Assets\Scripts\SpawnerButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Hovl Studio\Procedural fire\Shaders\FireSphere.shader" />

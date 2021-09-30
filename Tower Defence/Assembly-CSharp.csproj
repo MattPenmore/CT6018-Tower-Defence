@@ -53,12 +53,18 @@
     <UnityVersion>2021.1.22f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\MainBase.cs" />
     <Compile Include="Assets\Scripts\CellSelector.cs" />
     <Compile Include="Assets\Scripts\CellMesh.cs" />
     <Compile Include="Assets\Scripts\HexGrid.cs" />
+    <Compile Include="Assets\Scripts\TowerButtons.cs" />
     <Compile Include="Assets\Scripts\GridMetrics.cs" />
     <Compile Include="Assets\Scripts\GridCell.cs" />
-    <Compile Include="Assets\Scripts\MainBase.cs" />
+    <Compile Include="Assets\Scripts\SpawnerButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Hovl Studio\Procedural fire\Shaders\FireSphere.shader" />
+    <None Include="Assets\Hovl Studio\Procedural fire\Demo scene\Readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

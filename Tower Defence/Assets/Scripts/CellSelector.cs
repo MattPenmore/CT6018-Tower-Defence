@@ -5,7 +5,7 @@ using UnityEngine;
 public class CellSelector : MonoBehaviour
 {
 
-    public Camera camera;
+    public Camera cam;
 
 
     // Start is called before the first frame update
@@ -25,10 +25,10 @@ public class CellSelector : MonoBehaviour
         
     }
 
-    void SelectCell()
+    public void SelectCell()
     {
         RaycastHit hit;
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hit))
         {

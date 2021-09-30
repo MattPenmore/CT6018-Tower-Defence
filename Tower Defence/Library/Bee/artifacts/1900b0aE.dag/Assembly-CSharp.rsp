@@ -323,6 +323,8 @@
 "Assets/Scripts/GridCell.cs"
 "Assets/Scripts/GridMetrics.cs"
 "Assets/Scripts/HexGrid.cs"
+"Assets/Scripts/MainBase.cs"
+"Assets/Scripts/TowerButtons.cs"
 -langversion:8.0
 
 /deterministic

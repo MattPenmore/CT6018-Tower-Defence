@@ -49,6 +49,7 @@ public class TowerButtons : MonoBehaviour
                 if(objectHit.gameObject.tag == "Tower" && Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
                 {
                     objectHit.parent.GetComponent<GridCell>().notSelectable = false;
+                    objectHit.parent.GetComponent<GridCell>().isObstacle = false;
                     objectHit.parent = null;
                     Destroy(objectHit.gameObject);
                     return;
@@ -67,6 +68,7 @@ public class TowerButtons : MonoBehaviour
                             towerInstant.transform.localPosition = Tower.transform.position;
                             towerInstant.transform.localRotation = Tower.transform.rotation;
                             go.GetComponent<GridCell>().notSelectable = true;
+                            go.GetComponent<GridCell>().isObstacle = true;
                         }
 
                     }

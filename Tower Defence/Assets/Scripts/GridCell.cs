@@ -5,11 +5,21 @@ using UnityEngine;
 public class GridCell : MonoBehaviour
 {
     MeshFilter meshFilter;
-    public Vector3 cooridinates;
+    public Vector3 coordinates;
     public MeshRenderer selector;
     public bool isSelector;
     public bool notSelectable;
     public bool isTarget;
+    public int distanceToBase;
+    public bool isObstacle;
+
+    
+    public int f => g + h;
+    public int g;
+    public int h;
+    public List<GameObject> adjacentCells;
+    public GameObject previousCell;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,9 +47,35 @@ public class GridCell : MonoBehaviour
             selector.enabled = false;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        //if (Input.GetMouseButtonUp(0))
+        //{
+        //    isSelector = false;
+        //}
+    }
+
+    public List<GameObject> FindAdjacentCells()
+    {
+        List<GameObject> adjacentCells = new List<GameObject>();
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag("Cell");
+
+        foreach (GameObject go in gos)
         {
-            isSelector = false;
+            Vector3 otherCoordinates = go.GetComponent<GridCell>().coordinates;
+            if (Mathf.Abs(otherCoordinates.x - coordinates.x) <=1 && Mathf.Abs(otherCoordinates.y - coordinates.y) <= 1 && Mathf.Abs(otherCoordinates.z - coordinates.z) <=1)
+            {
+                if (!(Mathf.Abs(otherCoordinates.x - coordinates.x) == 0) || !(Mathf.Abs(otherCoordinates.y - coordinates.y) == 0) && !(Mathf.Abs(otherCoordinates.z - coordinates.z) == 0))
+                {
+                    adjacentCells.Add(go);
+                 
+                }
+            }
         }
+        return adjacentCells;
+    }
+
+    public void SetPreviousCell(GameObject makePreviousCell)
+    {
+        previousCell = makePreviousCell;
     }
 }

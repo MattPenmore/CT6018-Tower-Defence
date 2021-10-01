@@ -40,7 +40,7 @@ public class HexGrid : MonoBehaviour
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
         //Set coordinates of cells. Shift to keep both xand z cooridnates on straight lines.
-        cell.GetComponent<GridCell>().cooridinates = new Vector3(x - Mathf.FloorToInt(z / 2f),-(x - Mathf.FloorToInt(z / 2f)) - z ,z);
+        cell.GetComponent<GridCell>().coordinates = new Vector3(x - Mathf.FloorToInt(z / 2f),-(x - Mathf.FloorToInt(z / 2f)) - z ,z);
     }
 
     

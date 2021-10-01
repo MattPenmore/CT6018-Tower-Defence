@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MainBase : MonoBehaviour
 {
+    public GameObject closest = null;
 
     private void Start()
     {
@@ -13,7 +14,7 @@ public class MainBase : MonoBehaviour
     {
         GameObject[] gos;
         gos = GameObject.FindGameObjectsWithTag("Cell");
-        GameObject closest = null;
+        closest = null;
         float distance = Mathf.Infinity;
         Vector3 position = transform.position;
         foreach (GameObject go in gos)
@@ -26,16 +27,17 @@ public class MainBase : MonoBehaviour
                 distance = curDistance;
             }
         }
-
-        Vector3 closestCoordinates = closest.GetComponent<GridCell>().cooridinates;
+        closest.GetComponent<GridCell>().isTarget = true;
+        Vector3 closestCoordinates = closest.GetComponent<GridCell>().coordinates;
+        GameObject[] monsters;
+        monsters = GameObject.FindGameObjectsWithTag("Monster");
 
         foreach (GameObject go in gos)
         {
-            Vector3 Coordinates = go.GetComponent<GridCell>().cooridinates;
+            Vector3 Coordinates = go.GetComponent<GridCell>().coordinates;
             if (Mathf.Abs(Coordinates.x - closestCoordinates.x) <=2 && Mathf.Abs(Coordinates.y - closestCoordinates.y) <= 2 && Mathf.Abs(Coordinates.z - closestCoordinates.z) <=2)
             {
                 go.GetComponent<GridCell>().notSelectable = true;
-                go.GetComponent<GridCell>().isTarget = true;
             }
         }
     }

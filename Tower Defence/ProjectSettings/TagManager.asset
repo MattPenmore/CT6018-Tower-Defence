@@ -7,6 +7,8 @@ TagManager:
   - Cell
   - Tower
   - Spawner
+  - Base
+  - Monster
   layers:
   - Default
   - TransparentFX

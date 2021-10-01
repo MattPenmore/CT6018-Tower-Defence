@@ -102,7 +102,7 @@ GameObject:
   m_TagString: Cell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &5797613099126967778
 Transform:
@@ -131,11 +131,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb4e35d39fff694f8cf99660feef234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooridinates: {x: 0, y: 0, z: 0}
+  coordinates: {x: 0, y: 0, z: 0}
   selector: {fileID: 3167943831339648785}
   isSelector: 0
-  isOccupied: 0
+  notSelectable: 0
   isTarget: 0
+  distanceToBase: 0
+  isObstacle: 0
+  g: 0
+  h: 0
+  adjacentCells: []
+  previousCell: {fileID: 0}
 --- !u!33 &-6552384550735520493
 MeshFilter:
   m_ObjectHideFlags: 0

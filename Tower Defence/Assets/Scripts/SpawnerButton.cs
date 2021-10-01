@@ -12,6 +12,8 @@ public class SpawnerButton : MonoBehaviour
     GameObject[] gos;
     public Camera cam;
     public GameObject Spawner;
+
+    List<GameObject> isAdjacent;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,7 @@ public class SpawnerButton : MonoBehaviour
         gos = GameObject.FindGameObjectsWithTag("Cell");
         spawnerToggle.onValueChanged.AddListener(OnToggleValueChanged);
         toggleBackground = spawnerToggle.GetComponentInChildren<Image>();
+        isAdjacent = new List<GameObject>();
     }
 
     private void OnToggleValueChanged(bool isOn)
@@ -48,6 +51,16 @@ public class SpawnerButton : MonoBehaviour
 
                 if (objectHit.gameObject.tag == "Spawner" && Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
                 {
+                    objectHit.parent.GetComponent<GridCell>().adjacentCells = objectHit.parent.GetComponent<GridCell>().FindAdjacentCells();
+                    foreach(GameObject cell in objectHit.parent.GetComponent<GridCell>().adjacentCells)
+                    {
+                        if (!cell.GetComponent<GridCell>().isObstacle)
+                        {
+                            cell.GetComponent<GridCell>().notSelectable = false;
+                        }
+                    }
+
+
                     objectHit.parent.GetComponent<GridCell>().notSelectable = false;
                     objectHit.parent.GetComponent<GridCell>().isObstacle = false;
                     objectHit.parent = null;
@@ -57,20 +70,46 @@ public class SpawnerButton : MonoBehaviour
 
                 foreach (GameObject go in gos)
                 {
+
                     if (GameObject.ReferenceEquals(objectHit.gameObject, go) && !EventSystem.current.IsPointerOverGameObject())
                     {
                         go.GetComponent<GridCell>().isSelector = true;
+                        go.GetComponent<GridCell>().adjacentCells = go.GetComponent<GridCell>().FindAdjacentCells();
 
-                        if (Input.GetMouseButtonDown(0) && !go.GetComponent<GridCell>().notSelectable)
+                        bool adjacentsAvailable = true;
+                        
+                        foreach (GameObject cell in go.GetComponent<GridCell>().adjacentCells)
                         {
-                            GameObject towerInstant = Instantiate(Spawner);
-                            towerInstant.transform.parent = go.transform;
-                            towerInstant.transform.localPosition = Spawner.transform.position;
-                            towerInstant.transform.localRotation = Spawner.transform.rotation;
-                            go.GetComponent<GridCell>().notSelectable = true;
-                            go.GetComponent<GridCell>().isObstacle = true;
+                            cell.GetComponent<GridCell>().isSelector = true;
+                            isAdjacent.Add(cell);
+                            if (cell.GetComponent<GridCell>().notSelectable)
+                            {
+                                adjacentsAvailable = false;
+                            }
                         }
 
+                        if (Input.GetMouseButtonDown(0) && !go.GetComponent<GridCell>().notSelectable && adjacentsAvailable)
+                        {
+                            
+
+                            GameObject spawnerInstant = Instantiate(Spawner);
+                            spawnerInstant.transform.parent = go.transform;
+                            spawnerInstant.transform.localPosition = Spawner.transform.position;
+                            spawnerInstant.transform.localRotation = Spawner.transform.rotation;
+                            go.GetComponent<GridCell>().notSelectable = true;
+                            go.GetComponent<GridCell>().isObstacle = true;
+
+                            foreach (GameObject cell in go.GetComponent<GridCell>().adjacentCells)
+                            {
+                                cell.GetComponent<GridCell>().notSelectable = true;                                
+                            }
+
+                        }
+
+                    }
+                    else if (isAdjacent.Contains(go))
+                    {
+                        isAdjacent.Remove(go);
                     }
                     else
                     {

@@ -6,10 +6,11 @@ using System.Linq;
 public class Pathfind : MonoBehaviour
 {
     GameObject currentCell;
+    GameObject monsterController;
     // Start is called before the first frame update
     void Start()
     {
-        
+        monsterController = gameObject;
     }
 
     // Update is called once per frame
@@ -51,7 +52,12 @@ public class Pathfind : MonoBehaviour
             openPathCells.Remove(currentCell);
             closedPathCells.Add(currentCell);
 
+            //Limit number of hexagons that can be checked
             int g = currentCell.GetComponent<GridCell>().g + 1;
+            if(g > monsterController.GetComponent<MonsterController>().maxPathLength)
+            {
+                break;
+            }
 
             //Check if endpoint is in closed list
             if (closedPathCells.Contains(endPoint))

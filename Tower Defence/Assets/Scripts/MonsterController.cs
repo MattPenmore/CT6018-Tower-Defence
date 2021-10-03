@@ -8,13 +8,15 @@ public class MonsterController : MonoBehaviour
     public int maxPathLength = 500;
     public GameObject[] Path;
     GameObject pathfind;
+    GameObject previousPathingCell;
     public GameObject currentCell;
     GameObject previousCell;
     GameObject mainBase;
     public GameObject endPoint;
     public float moveSpeed;
     Rigidbody rb;
-
+    public float maxTimeBetweenPathfind = 5f;
+    float timeSincePathfind;
     //
     public Vector3 offset;
     //
@@ -26,30 +28,108 @@ public class MonsterController : MonoBehaviour
         endPoint = mainBase.GetComponent<MainBase>().closest;
         Path = new GameObject[maxPathLength];
         rb = GetComponent<Rigidbody>();
+        timeSincePathfind = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         FindCurentCell();
+        timeSincePathfind += Time.deltaTime;
 
-        if(!ReferenceEquals(currentCell, previousCell))
+
+        if (previousPathingCell != null && Path.Contains(currentCell))
         {
-            Path = pathfind.GetComponent<Pathfind>().FindPath(currentCell, endPoint).ToArray();
-            offset = Path[0].transform.position - transform.position + new Vector3(0, transform.position.y - Path[0].transform.position.y, 0);
-            if (offset.magnitude > 1f)
+            bool usePreviousPath = true;
+            foreach(GameObject cell in Path)
             {
-                Vector3 Target = Path[0].transform.position;
-                MoveTowards(Target);
+                if(cell.GetComponent<GridCell>().isObstacle)
+                {
+                    usePreviousPath = false;
+                }
+            }
+            if(usePreviousPath)
+            {
+                int index = System.Array.IndexOf(Path, currentCell);
+                if (Path.Length == index + 1)
+                {
+                    Destroy(gameObject);
+                }
+
+                offset = Path[index].transform.position - transform.position + new Vector3(0, transform.position.y - Path[index].transform.position.y, 0);
+                if (offset.magnitude > 1f && previousCell != currentCell)
+                {
+                    Vector3 Target = Path[index].transform.position;
+                    MoveTowards(Target);
+                }
+                else
+                {
+                    Vector3 Target = Path[index + 1].transform.position;
+                    MoveTowards(Target);
+                    previousCell = currentCell;
+                }
             }
             else
-            {               
-                Vector3 Target = Path[1].transform.position;
-                MoveTowards(Target);
-                previousCell = currentCell;
+            {
+                Path = pathfind.GetComponent<Pathfind>().FindPath(currentCell, endPoint).ToArray();
+                if (Path.Length == 0)
+                {
+                    MoveTowards(endPoint.transform.position);
+                }
+                else
+                {
+                    if (Path.Length == 1)
+                    {
+                        Destroy(gameObject);
+                    }
+
+                    offset = Path[0].transform.position - transform.position + new Vector3(0, transform.position.y - Path[0].transform.position.y, 0);
+                    if (offset.magnitude > 1f)
+                    {
+                        Vector3 Target = Path[0].transform.position;
+                        MoveTowards(Target);
+                    }
+                    else
+                    {
+                        Vector3 Target = Path[1].transform.position;
+                        MoveTowards(Target);
+                        previousCell = currentCell;
+                        previousPathingCell = currentCell;
+                    }
+                    timeSincePathfind = 0;
+                }
             }
         }
-        
+        else
+        {
+            Path = pathfind.GetComponent<Pathfind>().FindPath(currentCell, endPoint).ToArray();
+            if (Path.Length == 0)
+            {
+                MoveTowards(endPoint.transform.position);
+            }
+            else
+            {
+                if (Path.Length == 1)
+                {
+                    Destroy(gameObject);
+                }
+
+                offset = Path[0].transform.position - transform.position + new Vector3(0, transform.position.y - Path[0].transform.position.y, 0);
+                if (offset.magnitude > 1f)
+                {
+                    Vector3 Target = Path[0].transform.position;
+                    MoveTowards(Target);
+                }
+                else
+                {
+                    Vector3 Target = Path[1].transform.position;
+                    MoveTowards(Target);
+                    previousCell = currentCell;
+                    previousPathingCell = currentCell;
+                }
+                timeSincePathfind = 0;
+            }
+        }    
     }
 
     void FindCurentCell()

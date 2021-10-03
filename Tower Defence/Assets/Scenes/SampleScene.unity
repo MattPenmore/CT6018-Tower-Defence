@@ -649,12 +649,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 277.1281, y: 100, z: 180}
+  m_LocalPosition: {x: 277.1281, y: 191.02, z: 180}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+--- !u!1 &965706197 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6240409186114060999, guid: 12a0fea9b5fb72b47bb1f719da9a3305, type: 3}
+  m_PrefabInstance: {fileID: 1420264350}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1242754733
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,6 +871,7 @@ GameObject:
   - component: {fileID: 1489061624}
   - component: {fileID: 1489061628}
   - component: {fileID: 1489061629}
+  - component: {fileID: 1489061630}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -971,6 +977,8 @@ MonoBehaviour:
   spawnerToggle: {fileID: 1742171246}
   cam: {fileID: 963194227}
   Tower: {fileID: 5908356813462362276, guid: 83600773629d6804687dae3a250e5bfc, type: 3}
+  mainBase: {fileID: 965706197}
+  maxPathLength: 500
 --- !u!114 &1489061629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -987,6 +995,19 @@ MonoBehaviour:
   towerToggle: {fileID: 1647951223}
   cam: {fileID: 963194227}
   Spawner: {fileID: 2776331800869933593, guid: 490d21159978cfd4b9d6b704fbe9331b, type: 3}
+--- !u!114 &1489061630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489061623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5390ef0404e4cd24fb560a142861f264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxPathLength: 500
 --- !u!1 &1647951221
 GameObject:
   m_ObjectHideFlags: 0

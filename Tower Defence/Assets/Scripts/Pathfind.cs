@@ -6,11 +6,10 @@ using System.Linq;
 public class Pathfind : MonoBehaviour
 {
     GameObject currentCell;
-    GameObject monsterController;
+    public int maxPathLength = 500;
     // Start is called before the first frame update
     void Start()
     {
-        monsterController = gameObject;
     }
 
     // Update is called once per frame
@@ -54,7 +53,7 @@ public class Pathfind : MonoBehaviour
 
             //Limit number of hexagons that can be checked
             int g = currentCell.GetComponent<GridCell>().g + 1;
-            if(g > monsterController.GetComponent<MonsterController>().maxPathLength)
+            if(g > maxPathLength)
             {
                 break;
             }

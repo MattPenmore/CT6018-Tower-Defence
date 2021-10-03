@@ -325,6 +325,7 @@
 "Assets/Scripts/HexGrid.cs"
 "Assets/Scripts/MainBase.cs"
 "Assets/Scripts/MonsterController.cs"
+"Assets/Scripts/MonsterSpawning.cs"
 "Assets/Scripts/Pathfind.cs"
 "Assets/Scripts/SpawnerButton.cs"
 "Assets/Scripts/TowerButtons.cs"

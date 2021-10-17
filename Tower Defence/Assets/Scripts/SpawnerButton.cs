@@ -12,6 +12,8 @@ public class SpawnerButton : MonoBehaviour
     GameObject[] gos;
     public Camera cam;
     public GameObject Spawner;
+    bool isPlacable = true;
+    public GameObject mainBase;
 
     List<GameObject> isAdjacent;
     // Start is called before the first frame update
@@ -49,8 +51,10 @@ public class SpawnerButton : MonoBehaviour
             {
                 Transform objectHit = hit.transform;
 
+                //Sell spawner
                 if (objectHit.gameObject.tag == "Spawner" && Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
                 {
+                    
                     objectHit.parent.GetComponent<GridCell>().adjacentCells = objectHit.parent.GetComponent<GridCell>().FindAdjacentCells();
                     foreach(GameObject cell in objectHit.parent.GetComponent<GridCell>().adjacentCells)
                     {
@@ -73,6 +77,7 @@ public class SpawnerButton : MonoBehaviour
 
                     if (GameObject.ReferenceEquals(objectHit.gameObject, go) && !EventSystem.current.IsPointerOverGameObject())
                     {
+                        //Check if space is large enough
                         go.GetComponent<GridCell>().isSelector = true;
                         go.GetComponent<GridCell>().adjacentCells = go.GetComponent<GridCell>().FindAdjacentCells();
 
@@ -88,10 +93,18 @@ public class SpawnerButton : MonoBehaviour
                             }
                         }
 
-                        if (Input.GetMouseButtonDown(0) && !go.GetComponent<GridCell>().notSelectable && adjacentsAvailable)
-                        {
-                            
+                        //Check if can path to target
+                        GameObject endPoint = mainBase.GetComponent<MainBase>().closest;
 
+                        List<GameObject> Path = new List<GameObject>();
+                        Path = gameObject.GetComponent<Pathfind>().FindPath(objectHit.gameObject, endPoint);
+                        if (Path.Count == 0)
+                        {
+                            isPlacable = false;
+                        }
+
+                        if (Input.GetMouseButtonDown(0) && !go.GetComponent<GridCell>().notSelectable && adjacentsAvailable && isPlacable)
+                        {
                             GameObject spawnerInstant = Instantiate(Spawner);
                             spawnerInstant.transform.parent = go.transform;
                             spawnerInstant.transform.localPosition = Spawner.transform.position;
@@ -103,8 +116,8 @@ public class SpawnerButton : MonoBehaviour
                             {
                                 cell.GetComponent<GridCell>().notSelectable = true;                                
                             }
-
                         }
+                        isPlacable = true;
 
                     }
                     else if (isAdjacent.Contains(go))

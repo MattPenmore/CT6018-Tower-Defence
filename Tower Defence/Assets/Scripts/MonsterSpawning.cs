@@ -24,7 +24,8 @@ public class MonsterSpawning : MonoBehaviour
         if(timeToSpawn <= 0)
         {
             int spawnNumber = Random.Range(0, spawnPoints.Length);
-            Instantiate(Monster, spawnPoints[spawnNumber].transform);
+            GameObject monster = Instantiate(Monster, spawnPoints[spawnNumber].transform);
+            monster.transform.parent = null;
             timeToSpawn = spawnTime;
         }
     }

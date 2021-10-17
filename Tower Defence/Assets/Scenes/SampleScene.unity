@@ -995,6 +995,7 @@ MonoBehaviour:
   towerToggle: {fileID: 1647951223}
   cam: {fileID: 963194227}
   Spawner: {fileID: 2776331800869933593, guid: 490d21159978cfd4b9d6b704fbe9331b, type: 3}
+  mainBase: {fileID: 965706197}
 --- !u!114 &1489061630
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,10 +24,6 @@ public class Pathfind : MonoBehaviour
     {
         GameObject[] gos;
         gos = GameObject.FindGameObjectsWithTag("Cell");
-        foreach (GameObject go in gos)
-        {
-            go.GetComponent<GridCell>().isSelector = false;
-        }
 
         List<GameObject> openPathCells = new List<GameObject>();
         List<GameObject> closedPathCells = new List<GameObject>();
@@ -52,8 +48,8 @@ public class Pathfind : MonoBehaviour
             closedPathCells.Add(currentCell);
 
             //Limit number of hexagons that can be checked
-            int g = currentCell.GetComponent<GridCell>().g + 1;
-            if(g > maxPathLength)
+            int g = currentCell.GetComponent<GridCell>().g - 1;
+            if(g < -maxPathLength)
             {
                 break;
             }
@@ -74,25 +70,36 @@ public class Pathfind : MonoBehaviour
                 {
                     continue;
                 }
-                //Ifnore if already in closed list
+                //Check if  path to currentr cell can be reduced. if not continue. If so reduce it and break.
                 if(closedPathCells.Contains(adjacentCell))
                 {
-                    continue;
+                    if (adjacentCell.GetComponent<GridCell>().g > currentCell.GetComponent<GridCell>().g + 1)
+                    {
+                        currentCell.GetComponent<GridCell>().g = adjacentCell.GetComponent<GridCell>().g - 1;
+                        currentCell.GetComponent<GridCell>().previousCell = adjacentCell;
+                        closedPathCells.Remove(currentCell);
+
+                        break;
+                    }
+
+                        continue;
                 }
                 // If not in open list add and compute g and h
-                if(!(openPathCells.Contains(adjacentCell)))
+                if (!(openPathCells.Contains(adjacentCell)))
                 {
                     adjacentCell.GetComponent<GridCell>().g = g;
                     adjacentCell.GetComponent<GridCell>().h = GetEstimatedPathCost(adjacentCell.transform.position, endPoint.transform.position);
                     openPathCells.Add(adjacentCell);
                     adjacentCell.GetComponent<GridCell>().previousCell = currentCell;
                 }
-                //Otherwise check if F value can be lwoered with current G
+                //Otherwise check if F value can be lowered with current G
                 else if (adjacentCell.GetComponent<GridCell>().f > g + adjacentCell.GetComponent<GridCell>().h)
                 {
                     adjacentCell.GetComponent<GridCell>().g = g;
                     adjacentCell.GetComponent<GridCell>().previousCell = currentCell;
                 }
+
+
             }
         }
 
@@ -103,14 +110,13 @@ public class Pathfind : MonoBehaviour
             currentCell = endPoint;
             finalPathCells.Add(currentCell);
 
-            for (int i = endPoint.GetComponent<GridCell>().g - 1; i >= 0; i--)
+            for (int i = endPoint.GetComponent<GridCell>().g + 1; i <= 0; i++)
             {
                 foreach(GameObject cell in closedPathCells)
                 {
                     if(cell.GetComponent<GridCell>().g == i && cell.GetComponent<GridCell>().adjacentCells.Contains(currentCell))
                     {
                         currentCell = cell;
-                        currentCell.GetComponent<GridCell>().isSelector = true;
                         finalPathCells.Add(currentCell);
                     }
                 }

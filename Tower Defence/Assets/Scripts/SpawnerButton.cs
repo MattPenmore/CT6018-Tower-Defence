@@ -69,6 +69,11 @@ public class SpawnerButton : MonoBehaviour
                     objectHit.parent.GetComponent<GridCell>().isObstacle = false;
                     objectHit.parent = null;
                     Destroy(objectHit.gameObject);
+                    GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+                    foreach (GameObject monster in monsters)
+                    {
+                        monster.GetComponent<MonsterController>().PathFind();
+                    }
                     return;
                 }
 
@@ -115,6 +120,12 @@ public class SpawnerButton : MonoBehaviour
                             foreach (GameObject cell in go.GetComponent<GridCell>().adjacentCells)
                             {
                                 cell.GetComponent<GridCell>().notSelectable = true;                                
+                            }
+
+                            GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+                            foreach (GameObject monster in monsters)
+                            {
+                                monster.GetComponent<MonsterController>().PathFind();
                             }
                         }
                         isPlacable = true;

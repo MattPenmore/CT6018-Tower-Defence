@@ -121,6 +121,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   maxHealth: 100
   currentHealth: 100
+  scoreValue: 10
 --- !u!114 &2032670701411554117
 MonoBehaviour:
   m_ObjectHideFlags: 0

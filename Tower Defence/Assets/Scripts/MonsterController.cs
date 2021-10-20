@@ -15,13 +15,12 @@ public class MonsterController : MonoBehaviour
     public GameObject endPoint;
     public float moveSpeed;
     Rigidbody rb;
-    public float maxTimeBetweenPathfind = 5f;
-    float timeSincePathfind;
     //
     public Vector3 offset;
 
     public int maxHealth = 100;
     public int currentHealth;
+    public int scoreValue;
 
     // Start is called before the first frame update
     void Start()
@@ -31,8 +30,8 @@ public class MonsterController : MonoBehaviour
         endPoint = mainBase.GetComponent<MainBase>().closest;
         Path = new GameObject[maxPathLength];
         rb = GetComponent<Rigidbody>();
-        timeSincePathfind = 0;
         currentHealth = maxHealth;
+        PathFind();
     }
 
     // Update is called once per frame
@@ -40,24 +39,82 @@ public class MonsterController : MonoBehaviour
     {
         if(currentHealth <= 0)
         {
+            mainBase.GetComponent<Score>().score += scoreValue; 
             Destroy(gameObject);
         }
 
         FindCurentCell();
-        timeSincePathfind += Time.deltaTime;
+        if (previousPathingCell != null && Path.Contains(currentCell))
+        {
+            int index = System.Array.IndexOf(Path, currentCell);
+            if (Path.Length == index + 1)
+            {
+                Destroy(gameObject);
+            }
 
+            if(Path.Length > index + 1)
+            {
+                offset = Path[index].transform.position - transform.position + new Vector3(0, transform.position.y - Path[index].transform.position.y, 0);
+                if (offset.magnitude > 1f && previousCell != currentCell)
+                {
+                    Vector3 Target = Path[index].transform.position;
+                    MoveTowards(Target);
+                }
+                else
+                {
+                    Vector3 Target = Path[index + 1].transform.position;
+                    MoveTowards(Target);
+                    previousCell = currentCell;
+                }
+            }
+        }
+    }
+
+    void FindCurentCell()
+    {
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.down));
+        if (Physics.Raycast(ray, out hit))
+        {
+            Transform objectHit = hit.transform;
+
+            if (objectHit.gameObject.tag == "Cell")
+            {
+                currentCell = objectHit.gameObject;
+            }
+        }
+    }
+
+    void MoveTowards(Vector3 Target)
+    {
+        offset = Target - transform.position + new Vector3(0,transform.position.y - Target.y ,0);
+        if (offset.magnitude > 0.1f)
+        {
+            //If we're further away than .1 unit, move towards the target.
+            //The minimum allowable tolerance varies with the speed of the object and the framerate. 
+            // 2 * tolerance must be >= moveSpeed / framerate or the object will jump right over the stop.
+            offset = offset.normalized * moveSpeed;
+            //normalize it and account for movement speed.
+            rb.velocity = offset;
+            //actually move the character.
+        }
+    }
+
+    public void PathFind()
+    {
+        FindCurentCell();
 
         if (previousPathingCell != null && Path.Contains(currentCell))
         {
             bool usePreviousPath = true;
-            foreach(GameObject cell in Path)
+            foreach (GameObject cell in Path)
             {
-                if(cell.GetComponent<GridCell>().isObstacle)
+                if (cell.GetComponent<GridCell>().isObstacle)
                 {
                     usePreviousPath = false;
                 }
             }
-            if(usePreviousPath)
+            if (usePreviousPath)
             {
                 int index = System.Array.IndexOf(Path, currentCell);
                 if (Path.Length == index + 1)
@@ -105,7 +162,6 @@ public class MonsterController : MonoBehaviour
                         previousCell = currentCell;
                         previousPathingCell = currentCell;
                     }
-                    timeSincePathfind = 0;
                 }
             }
         }
@@ -136,38 +192,7 @@ public class MonsterController : MonoBehaviour
                     previousCell = currentCell;
                     previousPathingCell = currentCell;
                 }
-                timeSincePathfind = 0;
             }
-        }    
-    }
-
-    void FindCurentCell()
-    {
-        RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.down));
-        if (Physics.Raycast(ray, out hit))
-        {
-            Transform objectHit = hit.transform;
-
-            if (objectHit.gameObject.tag == "Cell")
-            {
-                currentCell = objectHit.gameObject;
-            }
-        }
-    }
-
-    void MoveTowards(Vector3 Target)
-    {
-        offset = Target - transform.position + new Vector3(0,transform.position.y - Target.y ,0);
-        if (offset.magnitude > 0.1f)
-        {
-            //If we're further away than .1 unit, move towards the target.
-            //The minimum allowable tolerance varies with the speed of the object and the framerate. 
-            // 2 * tolerance must be >= moveSpeed / framerate or the object will jump right over the stop.
-            offset = offset.normalized * moveSpeed;
-            //normalize it and account for movement speed.
-            rb.velocity = offset;
-            //actually move the character.
         }
     }
 }

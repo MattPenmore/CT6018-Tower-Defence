@@ -327,6 +327,7 @@
 "Assets/Scripts/MonsterController.cs"
 "Assets/Scripts/MonsterSpawning.cs"
 "Assets/Scripts/Pathfind.cs"
+"Assets/Scripts/Score.cs"
 "Assets/Scripts/SpawnerButton.cs"
 "Assets/Scripts/TowerButtons.cs"
 "Assets/Scripts/TowerController.cs"

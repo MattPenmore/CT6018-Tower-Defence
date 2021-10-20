@@ -17,6 +17,17 @@ public class TowerButtons : MonoBehaviour
     public int maxPathLength = 500;
     List<GameObject> Spawners;
 
+    [SerializeField]
+    int cost;
+    [SerializeField]
+    int numTowers = 0;
+
+    [SerializeField]
+    float exponenntialRatio = 1.25f;
+
+    [SerializeField]
+    GameObject score;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +53,13 @@ public class TowerButtons : MonoBehaviour
 
     private void Update()
     {
+        cost = Mathf.FloorToInt(10 * Mathf.Pow(exponenntialRatio, numTowers - 1));
+        if (numTowers == 0)
+        {
+            cost = 0;
+        }
+
+
         if (towerToggle.isOn)
         {
             RaycastHit hit;
@@ -59,6 +77,12 @@ public class TowerButtons : MonoBehaviour
                     objectHit.parent.GetComponent<GridCell>().isObstacle = false;
                     objectHit.parent = null;
                     Destroy(objectHit.gameObject);
+                    numTowers -= 1;
+                    GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+                    foreach (GameObject monster in monsters)
+                    {
+                        monster.GetComponent<MonsterController>().PathFind();
+                    }
                     return;
                 }
                 
@@ -85,7 +109,7 @@ public class TowerButtons : MonoBehaviour
                             }
                             if (!go.GetComponent<GridCell>().notSelectable && isPlacable)
                             {
-                                if (Input.GetMouseButtonDown(0))
+                                if (Input.GetMouseButtonDown(0) && score.GetComponent<Score>().score >= cost)
                                 {
                                     GameObject towerInstant = Instantiate(Tower);
                                     towerInstant.transform.parent = go.transform;
@@ -93,6 +117,13 @@ public class TowerButtons : MonoBehaviour
                                     towerInstant.transform.localRotation = Tower.transform.rotation;
                                     towerInstant.transform.localScale = Tower.transform.localScale;
                                     go.GetComponent<GridCell>().notSelectable = true;
+                                    score.GetComponent<Score>().score -= cost;
+                                    numTowers += 1;
+                                    GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+                                    foreach (GameObject monster in monsters)
+                                    {
+                                        monster.GetComponent<MonsterController>().PathFind();
+                                    }
                                 }
                                 else
                                 {

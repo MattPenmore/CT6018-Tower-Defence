@@ -91,6 +91,7 @@ public class TowerButtons : MonoBehaviour
                                     towerInstant.transform.parent = go.transform;
                                     towerInstant.transform.localPosition = Tower.transform.position;
                                     towerInstant.transform.localRotation = Tower.transform.rotation;
+                                    towerInstant.transform.localScale = Tower.transform.localScale;
                                     go.GetComponent<GridCell>().notSelectable = true;
                                 }
                                 else

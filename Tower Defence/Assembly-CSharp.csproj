@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\MonsterSpawning.cs" />
     <Compile Include="Assets\Scripts\GridCell.cs" />
     <Compile Include="Assets\Scripts\Pathfind.cs" />
+    <Compile Include="Assets\Scripts\TowerController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Hovl Studio\Procedural fire\Shaders\FireSphere.shader" />

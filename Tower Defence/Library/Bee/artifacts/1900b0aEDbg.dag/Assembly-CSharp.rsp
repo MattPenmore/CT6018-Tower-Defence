@@ -329,6 +329,7 @@
 "Assets/Scripts/Pathfind.cs"
 "Assets/Scripts/SpawnerButton.cs"
 "Assets/Scripts/TowerButtons.cs"
+"Assets/Scripts/TowerController.cs"
 -langversion:8.0
 
 /deterministic

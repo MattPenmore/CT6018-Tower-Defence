@@ -100,7 +100,7 @@ public class MonsterController : MonoBehaviour
                 }
             }
         }
-        else
+        else if (currentCell != null)
         {
             Path = pathfind.GetComponent<Pathfind>().FindPath(currentCell, endPoint).ToArray();
             if (Path.Length == 0)

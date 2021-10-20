@@ -976,7 +976,7 @@ MonoBehaviour:
   towerToggle: {fileID: 1647951223}
   spawnerToggle: {fileID: 1742171246}
   cam: {fileID: 963194227}
-  Tower: {fileID: 5908356813462362276, guid: 83600773629d6804687dae3a250e5bfc, type: 3}
+  Tower: {fileID: 7996336467758122955, guid: 83600773629d6804687dae3a250e5bfc, type: 3}
   mainBase: {fileID: 965706197}
   maxPathLength: 500
 --- !u!114 &1489061629

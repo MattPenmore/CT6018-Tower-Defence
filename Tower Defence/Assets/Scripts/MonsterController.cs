@@ -19,7 +19,10 @@ public class MonsterController : MonoBehaviour
     float timeSincePathfind;
     //
     public Vector3 offset;
-    //
+
+    public int maxHealth = 100;
+    public int currentHealth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,11 +32,17 @@ public class MonsterController : MonoBehaviour
         Path = new GameObject[maxPathLength];
         rb = GetComponent<Rigidbody>();
         timeSincePathfind = 0;
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+
         FindCurentCell();
         timeSincePathfind += Time.deltaTime;
 

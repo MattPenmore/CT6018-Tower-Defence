@@ -54,6 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\MainBase.cs" />
+    <Compile Include="Assets\Scripts\TowerController.cs" />
     <Compile Include="Assets\Scripts\CellSelector.cs" />
     <Compile Include="Assets\Scripts\CellMesh.cs" />
     <Compile Include="Assets\Scripts\SpawnerButton.cs" />
@@ -64,7 +65,6 @@
     <Compile Include="Assets\Scripts\MonsterSpawning.cs" />
     <Compile Include="Assets\Scripts\GridCell.cs" />
     <Compile Include="Assets\Scripts\Pathfind.cs" />
-    <Compile Include="Assets\Scripts\TowerController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Hovl Studio\Procedural fire\Shaders\FireSphere.shader" />

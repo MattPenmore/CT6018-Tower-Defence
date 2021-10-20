@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Monster: {fileID: 2032670701411554106, guid: 66fa7add69e3c484fad7439cbf23a04a, type: 3}
-  spawnTime: 2
+  spawnTime: 5
   spawnPoints:
   - {fileID: 2678256965843653276}
   - {fileID: 122780502352170402}

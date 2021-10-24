@@ -20,6 +20,10 @@ public class GridCell : MonoBehaviour
     public List<GameObject> adjacentCells;
     public GameObject previousCell;
 
+
+    public bool spawnerPathsChecked = false;
+    public bool towerPlacable = true;
+
     // Start is called before the first frame update
     void Start()
     {

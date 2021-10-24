@@ -18,15 +18,19 @@ public class TowerButtons : MonoBehaviour
     List<GameObject> Spawners;
 
     [SerializeField]
-    int cost;
+    double cost;
     [SerializeField]
-    int numTowers = 0;
-
+    double numTowers = 0;
+    [SerializeField]
+    double baseValue;
     [SerializeField]
     float exponenntialRatio = 1.25f;
 
     [SerializeField]
     GameObject score;
+
+    [SerializeField]
+    Text costText;
 
     // Start is called before the first frame update
     void Start()
@@ -53,12 +57,22 @@ public class TowerButtons : MonoBehaviour
 
     private void Update()
     {
-        cost = Mathf.FloorToInt(10 * Mathf.Pow(exponenntialRatio, numTowers - 1));
+        cost = System.Math.Floor(baseValue * System.Math.Pow(exponenntialRatio, numTowers - 1));
         if (numTowers == 0)
         {
             cost = 0;
         }
+        double exponent = (System.Math.Floor(System.Math.Log10(System.Math.Abs(cost))));
+        double mantissa = (cost / System.Math.Pow(10, exponent));
 
+        if (cost >= 1000000)
+        {
+            costText.text = mantissa.ToString("F3") + "e" + exponent.ToString();
+        }
+        else
+        {
+            costText.text = cost.ToString();
+        }
 
         if (towerToggle.isOn)
         {
@@ -81,7 +95,7 @@ public class TowerButtons : MonoBehaviour
                     GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
                     foreach (GameObject monster in monsters)
                     {
-                        monster.GetComponent<MonsterController>().PathFind();
+                        monster.GetComponent<MonsterController>().needToPathfind = true;
                     }
                     return;
                 }
@@ -122,7 +136,7 @@ public class TowerButtons : MonoBehaviour
                                     GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
                                     foreach (GameObject monster in monsters)
                                     {
-                                        monster.GetComponent<MonsterController>().PathFind();
+                                        monster.GetComponent<MonsterController>().needToPathfind = true;
                                     }
                                 }
                                 else

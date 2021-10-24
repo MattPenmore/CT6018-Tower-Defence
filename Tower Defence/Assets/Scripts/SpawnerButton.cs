@@ -15,6 +15,20 @@ public class SpawnerButton : MonoBehaviour
     bool isPlacable = true;
     public GameObject mainBase;
 
+    [SerializeField]
+    GameObject score;
+    [SerializeField]
+    double cost;
+    [SerializeField]
+    double numSpawners = 0;
+    [SerializeField]
+    double baseValue;
+    [SerializeField]
+    float exponenntialRatio = 1.25f;
+
+    [SerializeField]
+    Text costText;
+
     List<GameObject> isAdjacent;
     // Start is called before the first frame update
     void Start()
@@ -42,6 +56,20 @@ public class SpawnerButton : MonoBehaviour
 
     private void Update()
     {
+        cost = System.Math.Floor(baseValue * System.Math.Pow(exponenntialRatio, numSpawners));
+
+        double exponent = (System.Math.Floor(System.Math.Log10(System.Math.Abs(cost))));
+        double mantissa = (cost / System.Math.Pow(10, exponent));
+
+        if (cost >= 1000000)
+        {
+            costText.text = mantissa.ToString("F3") + "e" + exponent.ToString();
+        }
+        else
+        {
+            costText.text = cost.ToString();
+        }
+
         if (spawnerToggle.isOn)
         {
             RaycastHit hit;
@@ -69,10 +97,11 @@ public class SpawnerButton : MonoBehaviour
                     objectHit.parent.GetComponent<GridCell>().isObstacle = false;
                     objectHit.parent = null;
                     Destroy(objectHit.gameObject);
+                    numSpawners -= 1;
                     GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
                     foreach (GameObject monster in monsters)
                     {
-                        monster.GetComponent<MonsterController>().PathFind();
+                        monster.GetComponent<MonsterController>().needToPathfind = true;
                     }
                     return;
                 }
@@ -108,7 +137,7 @@ public class SpawnerButton : MonoBehaviour
                             isPlacable = false;
                         }
 
-                        if (Input.GetMouseButtonDown(0) && !go.GetComponent<GridCell>().notSelectable && adjacentsAvailable && isPlacable)
+                        if (Input.GetMouseButtonDown(0) && !go.GetComponent<GridCell>().notSelectable && adjacentsAvailable && isPlacable && score.GetComponent<Score>().score >= cost)
                         {
                             GameObject spawnerInstant = Instantiate(Spawner);
                             spawnerInstant.transform.parent = go.transform;
@@ -116,6 +145,8 @@ public class SpawnerButton : MonoBehaviour
                             spawnerInstant.transform.localRotation = Spawner.transform.rotation;
                             go.GetComponent<GridCell>().notSelectable = true;
                             go.GetComponent<GridCell>().isObstacle = true;
+                            score.GetComponent<Score>().score -= cost;
+                            numSpawners += 1;
 
                             foreach (GameObject cell in go.GetComponent<GridCell>().adjacentCells)
                             {
@@ -125,7 +156,7 @@ public class SpawnerButton : MonoBehaviour
                             GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
                             foreach (GameObject monster in monsters)
                             {
-                                monster.GetComponent<MonsterController>().PathFind();
+                                monster.GetComponent<MonsterController>().needToPathfind = true;
                             }
                         }
                         isPlacable = true;

@@ -21,6 +21,7 @@ public class MonsterController : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
     public int scoreValue;
+    public bool needToPathfind = false;
 
     // Start is called before the first frame update
     void Start()
@@ -43,8 +44,14 @@ public class MonsterController : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if (needToPathfind)
+        {
+            PathFind();
+            needToPathfind = false;
+        }
+
         FindCurentCell();
-        if (previousPathingCell != null && Path.Contains(currentCell))
+        if (previousPathingCell != null && Path.Contains(currentCell) && !needToPathfind)
         {
             int index = System.Array.IndexOf(Path, currentCell);
             if (Path.Length == index + 1)
@@ -68,6 +75,7 @@ public class MonsterController : MonoBehaviour
                 }
             }
         }
+        
     }
 
     void FindCurentCell()

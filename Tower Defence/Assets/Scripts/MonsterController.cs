@@ -75,6 +75,10 @@ public class MonsterController : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            needToPathfind = true;
+        }
         
     }
 

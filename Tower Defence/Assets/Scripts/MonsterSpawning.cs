@@ -9,11 +9,11 @@ public class MonsterSpawning : MonoBehaviour
     public float spawnTime;
     float timeToSpawn;
     public GameObject[] spawnPoints;
+
     // Start is called before the first frame update
     void Start()
     {
         timeToSpawn = spawnTime;
-        
     }
 
     // Update is called once per frame

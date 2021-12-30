@@ -32,6 +32,11 @@ public class TowerButtons : MonoBehaviour
     [SerializeField]
     Text costText;
 
+
+    GameObject currentHit;
+    GameObject previousHit;
+    bool isPlacable = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -104,6 +109,7 @@ public class TowerButtons : MonoBehaviour
                 {
                     if (GameObject.ReferenceEquals(objectHit.gameObject, go) && !EventSystem.current.IsPointerOverGameObject())
                     {
+                        currentHit = go;
                         go.GetComponent<GridCell>().isSelector = true;
 
                         if(!go.GetComponent<GridCell>().isObstacle)
@@ -111,14 +117,17 @@ public class TowerButtons : MonoBehaviour
                             go.GetComponent<GridCell>().isObstacle = true;
                             Spawners = GameObject.FindGameObjectsWithTag("Spawner").ToList();
                             GameObject endPoint = mainBase.GetComponent<MainBase>().closest;
-                            bool isPlacable = true;
-                            foreach (GameObject spawner in Spawners)
+                            if(currentHit != previousHit)
                             {
-                                List<GameObject> Path = new List<GameObject>();
-                                Path = gameObject.GetComponent<Pathfind>().FindPath(spawner.transform.parent.gameObject, endPoint);
-                                if (Path.Count == 0)
+                                isPlacable = true;
+                                foreach (GameObject spawner in Spawners)
                                 {
-                                    isPlacable = false;
+                                    List<GameObject> Path = new List<GameObject>();
+                                    Path = gameObject.GetComponent<Pathfind>().FindPath(spawner.transform.parent.gameObject, endPoint);
+                                    if (Path.Count == 0)
+                                    {
+                                        isPlacable = false;
+                                    }
                                 }
                             }
                             if (!go.GetComponent<GridCell>().notSelectable && isPlacable)
@@ -150,10 +159,11 @@ public class TowerButtons : MonoBehaviour
                                 go.GetComponent<GridCell>().selector.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);
                             }
                         }
+                        previousHit = currentHit;
                     }
                     else
                     {
-                        go.GetComponent<GridCell>().isSelector = false;
+                        go.GetComponent<GridCell>().isSelector = false;                      
                     }
                 }
             }            
@@ -161,6 +171,8 @@ public class TowerButtons : MonoBehaviour
         else
         {
             toggleBackground.color = Color.white;
+            currentHit = null;
+            previousHit = null;
         }
     }
 }

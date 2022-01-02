@@ -56,7 +56,7 @@ public class TowerButtons : MonoBehaviour
         }
         else
         {
-            toggleBackground.color = Color.white;
+            toggleBackground.color = new Color32(44, 44, 44, 255)/*Color.white*/;
         }
     }
 
@@ -170,7 +170,7 @@ public class TowerButtons : MonoBehaviour
         }
         else
         {
-            toggleBackground.color = Color.white;
+            toggleBackground.color = new Color32(44,44,44,255)/*Color.white*/;
             currentHit = null;
             previousHit = null;
         }

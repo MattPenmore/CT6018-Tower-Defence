@@ -50,7 +50,7 @@ public class SpawnerButton : MonoBehaviour
         }
         else
         {
-            toggleBackground.color = Color.white;
+            toggleBackground.color = new Color32(44, 44, 44, 255);
         }
     }
 
@@ -175,7 +175,7 @@ public class SpawnerButton : MonoBehaviour
         }
         else
         {
-            toggleBackground.color = Color.white;
+            toggleBackground.color = new Color32(44, 44, 44, 255);
         }
     }
 }

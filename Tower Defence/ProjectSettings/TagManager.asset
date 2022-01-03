@@ -9,6 +9,8 @@ TagManager:
   - Spawner
   - Base
   - Monster
+  - Turret
+  - Goblin Spawner
   layers:
   - Default
   - TransparentFX

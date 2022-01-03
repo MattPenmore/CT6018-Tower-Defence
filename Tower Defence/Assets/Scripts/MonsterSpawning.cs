@@ -26,6 +26,7 @@ public class MonsterSpawning : MonoBehaviour
             int spawnNumber = Random.Range(0, spawnPoints.Length);
             GameObject monster = Instantiate(Monster, spawnPoints[spawnNumber].transform);
             monster.transform.parent = null;
+            monster.transform.localScale = Monster.transform.localScale;
             timeToSpawn = spawnTime;
         }
     }

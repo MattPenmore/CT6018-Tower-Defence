@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: -5209378761589993847}
   m_Layer: 0
   m_Name: Spawner
-  m_TagString: Spawner
+  m_TagString: Goblin Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

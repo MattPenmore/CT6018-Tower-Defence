@@ -6,8 +6,11 @@ using UnityEngine.EventSystems;
 
 public class SpawnerButton : MonoBehaviour
 {
+    [SerializeField]
+    string spawnerName;
+
     public Toggle spawnerToggle;
-    public Toggle towerToggle;
+    public Toggle[] otherSpawnersToggle;
     private Image toggleBackground;
     GameObject[] gos;
     public Camera cam;
@@ -46,7 +49,10 @@ public class SpawnerButton : MonoBehaviour
         if (isOn == true)
         {
             toggleBackground.color = Color.blue;
-            towerToggle.isOn = false;
+            foreach(Toggle tog in otherSpawnersToggle)
+            {
+                tog.isOn = false;
+            }
         }
         else
         {
@@ -80,7 +86,7 @@ public class SpawnerButton : MonoBehaviour
                 Transform objectHit = hit.transform;
 
                 //Sell spawner
-                if (objectHit.gameObject.tag == "Spawner" && Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
+                if (objectHit.gameObject.tag == spawnerName && Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
                 {
                     
                     objectHit.parent.GetComponent<GridCell>().adjacentCells = objectHit.parent.GetComponent<GridCell>().FindAdjacentCells();

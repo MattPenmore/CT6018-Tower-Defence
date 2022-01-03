@@ -7,8 +7,11 @@ using System.Linq;
 
 public class TowerButtons : MonoBehaviour
 {
+    [SerializeField]
+    string towerName;
+
     public Toggle towerToggle;
-    public Toggle spawnerToggle;
+    public Toggle[] otherTowersToggle;
     private Image toggleBackground;
     GameObject[] gos;
     public Camera cam;
@@ -52,7 +55,10 @@ public class TowerButtons : MonoBehaviour
         if (isOn == true)
         {
             toggleBackground.color = Color.blue;
-            spawnerToggle.isOn = false;
+            foreach(Toggle tog in otherTowersToggle)
+            {
+                tog.isOn = false;
+            }
         }
         else
         {
@@ -62,8 +68,8 @@ public class TowerButtons : MonoBehaviour
 
     private void Update()
     {
-        cost = System.Math.Floor(baseValue * System.Math.Pow(exponenntialRatio, numTowers - 1));
-        if (numTowers == 0)
+        cost = System.Math.Floor(baseValue * System.Math.Pow(exponenntialRatio, numTowers));
+        if (numTowers == 0 && towerName == "Turret")
         {
             cost = 0;
         }
@@ -90,7 +96,7 @@ public class TowerButtons : MonoBehaviour
 
                 
 
-                if(objectHit.gameObject.tag == "Tower" && Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
+                if(objectHit.gameObject.tag == towerName && Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
                 {
                     objectHit.parent.GetComponent<GridCell>().notSelectable = false;
                     objectHit.parent.GetComponent<GridCell>().isObstacle = false;

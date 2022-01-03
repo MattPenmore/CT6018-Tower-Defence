@@ -47,26 +47,28 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Package</UnityProjectGenerator>
-    <UnityProjectGeneratorVersion>2.0.11</UnityProjectGeneratorVersion>
+    <UnityProjectGeneratorVersion>2.0.12</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2021.1.22f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\MainBase.cs" />
-    <Compile Include="Assets\Scripts\TowerController.cs" />
-    <Compile Include="Assets\Scripts\CellSelector.cs" />
-    <Compile Include="Assets\Scripts\CellMesh.cs" />
+    <Compile Include="Assets\Scripts\TurretController.cs" />
+    <Compile Include="Assets\Scripts\Grid\CellSelector.cs" />
+    <Compile Include="Assets\Scripts\Grid\CellMesh.cs" />
     <Compile Include="Assets\Scripts\SpawnerButton.cs" />
-    <Compile Include="Assets\Scripts\HexGrid.cs" />
+    <Compile Include="Assets\Scripts\Grid\HexGrid.cs" />
     <Compile Include="Assets\Scripts\TowerButtons.cs" />
     <Compile Include="Assets\Scripts\MonsterController.cs" />
-    <Compile Include="Assets\Scripts\GridMetrics.cs" />
+    <Compile Include="Assets\Scripts\Grid\GridMetrics.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawning.cs" />
     <Compile Include="Assets\Scripts\Score.cs" />
-    <Compile Include="Assets\Scripts\GridCell.cs" />
-    <Compile Include="Assets\Scripts\Pathfind.cs" />
+    <Compile Include="Assets\Scripts\Grid\GridCell.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
+    <Compile Include="Assets\Scripts\Pathfind.cs" />
+    <Compile Include="Assets\Scripts\SideMenu.cs" />
+    <Compile Include="Assets\Scripts\MonsterOnClick.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Hovl Studio\Procedural fire\Shaders\FireSphere.shader" />

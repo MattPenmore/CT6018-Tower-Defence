@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 8648407044231576535}
   m_Layer: 0
   m_Name: Tower
-  m_TagString: Tower
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -328,6 +328,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9e0bfa8e41682243bfec87fffae7b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerNames:
+  - Turret
+  spawnerNames:
+  - Goblin Spawner
   damage: 20
   Range: 3
   rangeTrigger: {fileID: 8648407044231576535}

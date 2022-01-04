@@ -141,10 +141,10 @@ public class TowerButtons : MonoBehaviour
                                 if (Input.GetMouseButtonDown(0) && score.GetComponent<Score>().score >= cost)
                                 {
                                     GameObject towerInstant = Instantiate(Tower);
+                                    towerInstant.transform.localScale = new Vector3(1,1,1);
                                     towerInstant.transform.parent = go.transform;
                                     towerInstant.transform.localPosition = Tower.transform.position;
                                     towerInstant.transform.localRotation = Tower.transform.rotation;
-                                    towerInstant.transform.localScale = Tower.transform.localScale;
                                     go.GetComponent<GridCell>().notSelectable = true;
                                     score.GetComponent<Score>().score -= cost;
                                     numTowers += 1;

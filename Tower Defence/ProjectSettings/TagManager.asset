@@ -12,6 +12,8 @@ TagManager:
   - Turret
   - Goblin Spawner
   - Hammer
+  - Rocket
+  - Electric
   layers:
   - Default
   - TransparentFX

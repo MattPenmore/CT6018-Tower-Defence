@@ -318,6 +318,7 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/VSSettingsProvider.ref.dll"
+"Assets/LightningBolt/LightningBoltScript.cs"
 "Assets/Scripts/CameraMovement.cs"
 "Assets/Scripts/Grid/CellMesh.cs"
 "Assets/Scripts/Grid/CellSelector.cs"

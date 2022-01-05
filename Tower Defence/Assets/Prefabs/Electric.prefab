@@ -1883,9 +1883,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1113316643303263130}
-  - component: {fileID: 8604861239031298285}
   - component: {fileID: 4828061118170029938}
   - component: {fileID: 134979247079858894}
+  - component: {fileID: 1411307900222941187}
   m_Layer: 0
   m_Name: Electric
   m_TagString: Electric
@@ -1911,33 +1911,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
---- !u!114 &8604861239031298285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1667012652618981074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9e0bfa8e41682243bfec87fffae7b16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerNames:
-  - Turret
-  spawnerNames:
-  - Goblin Spawner
-  damage: 20
-  Range: 3
-  rangeTrigger: {fileID: 134979247079858894}
-  shootSpeed: 4
-  timetoShoot: 0
-  rotationSpeed: 5
-  turretRotator: {fileID: 0}
-  enemiesInRange: []
-  enemiesInSight: []
-  target: {fileID: 0}
-  shootAnim: {fileID: 0}
 --- !u!136 &4828061118170029938
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1965,6 +1938,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 60
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1411307900222941187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667012652618981074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 687082ba8189ef341aa17345ebaea035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  Range: 5
+  rangeTrigger: {fileID: 134979247079858894}
+  shockSpeed: 1
+  timeToShock: 0
+  enemiesInRange: []
 --- !u!1 &6862481085556645781
 GameObject:
   m_ObjectHideFlags: 0

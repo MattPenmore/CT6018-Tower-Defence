@@ -334,7 +334,10 @@
 "Assets/Scripts/SideMenu.cs"
 "Assets/Scripts/SpawnerButton.cs"
 "Assets/Scripts/TowerButtons.cs"
-"Assets/Scripts/TurretController.cs"
+"Assets/Scripts/Towers/CircleRotate.cs"
+"Assets/Scripts/Towers/ElectricController.cs"
+"Assets/Scripts/Towers/HammerController.cs"
+"Assets/Scripts/Towers/TurretController.cs"
 -langversion:8.0
 
 /deterministic

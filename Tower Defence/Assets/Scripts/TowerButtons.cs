@@ -103,6 +103,10 @@ public class TowerButtons : MonoBehaviour
                     objectHit.parent = null;
                     Destroy(objectHit.gameObject);
                     numTowers -= 1;
+                    if (!(numTowers == 0 && towerName == "Turret"))
+                    {
+                        score.GetComponent<Score>().score +=  System.Math.Floor(baseValue * System.Math.Pow(exponenntialRatio, numTowers) / 5f);
+                    }
                     GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
                     foreach (GameObject monster in monsters)
                     {
@@ -110,7 +114,12 @@ public class TowerButtons : MonoBehaviour
                     }
                     return;
                 }
-                
+
+                if (objectHit.gameObject.tag == towerName && Input.GetKeyDown(KeyCode.R) && !EventSystem.current.IsPointerOverGameObject())
+                {
+                    objectHit.transform.localRotation = Quaternion.Euler(objectHit.transform.localRotation.eulerAngles.x, objectHit.transform.localRotation.eulerAngles.y + 60, objectHit.transform.localRotation.eulerAngles.z);
+                }
+
                 foreach (GameObject go in gos)
                 {
                     if (GameObject.ReferenceEquals(objectHit.gameObject, go) && !EventSystem.current.IsPointerOverGameObject())

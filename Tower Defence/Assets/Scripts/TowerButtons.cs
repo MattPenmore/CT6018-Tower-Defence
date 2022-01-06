@@ -35,6 +35,15 @@ public class TowerButtons : MonoBehaviour
     [SerializeField]
     Text costText;
 
+    [SerializeField]
+    List<UpgradeButton> upgradeButtons;
+
+    [SerializeField]
+    List<int> upgradeButtonValues;
+
+    //Upgrade Buttons for the towers, and number of towers of that type needed to become available
+    Dictionary<UpgradeButton, int> upgradeButtonsPair;
+
 
     GameObject currentHit;
     GameObject previousHit;
@@ -43,7 +52,13 @@ public class TowerButtons : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        int i = 0;
+        foreach(UpgradeButton button in upgradeButtons)
+        {
+            upgradeButtonsPair.Add(button, upgradeButtonValues[i]);
+            i++;
+        }
+
         gos = GameObject.FindGameObjectsWithTag("Cell");
         towerToggle.onValueChanged.AddListener(OnToggleValueChanged);
         toggleBackground = towerToggle.GetComponentInChildren<Image>();
@@ -161,6 +176,15 @@ public class TowerButtons : MonoBehaviour
                                     foreach (GameObject monster in monsters)
                                     {
                                         monster.GetComponent<MonsterController>().needToPathfind = true;
+                                    }
+
+                                    //Make upgrade buttons available if requirements for number of towers is met.
+                                    foreach(KeyValuePair<UpgradeButton, int> button in upgradeButtonsPair)
+                                    {
+                                        if(button.Value <= numTowers)
+                                        {
+                                            button.Key.isAvailable = true;
+                                        }
                                     }
                                 }
                                 else

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HammerController : MonoBehaviour
 {
+    Upgrades upgrades;
+
     public int damage = 100;
 
     public float hitSpeed;
@@ -30,6 +32,8 @@ public class HammerController : MonoBehaviour
     void Start()
     {
         enemiesInRange = new List<GameObject>();
+
+        upgrades = FindObjectOfType<Upgrades>();
     }
 
     // Update is called once per frame
@@ -51,19 +55,19 @@ public class HammerController : MonoBehaviour
         if (enemiesInRange.Count != 0 && timeToHit <= 0 && !hammerSwingingUp)
         {
             hammerSwingingDown = true;
-            timeToHit = hitSpeed;
+            timeToHit = hitSpeed / upgrades.hammerSpeedUpgrade;
             timeSwingingDown = 0;
         }
 
         if(hammerSwingingDown)
         {
             timeSwingingDown += Time.deltaTime;
-            hammerRotator.transform.localRotation = Quaternion.Lerp(hammerRotator.transform.localRotation, Quaternion.Euler(angleBottom, 0, 90), swingSpeedMultiplier * Time.deltaTime / swingTimeDown);
+            hammerRotator.transform.localRotation = Quaternion.Lerp(hammerRotator.transform.localRotation, Quaternion.Euler(angleBottom, 0, 90), swingSpeedMultiplier * Time.deltaTime / (swingTimeDown * upgrades.hammerSpeedUpgrade));
             if (timeSwingingDown >= swingTimeDown)
             {
                 foreach (GameObject monster in enemiesInRange)
                 {
-                    monster.GetComponent<MonsterController>().currentHealth -= damage;
+                    monster.GetComponent<MonsterController>().currentHealth -= damage * upgrades.hammerDamageUpgrade;
                 }
 
                 hammerSwingingDown = false;
@@ -76,7 +80,7 @@ public class HammerController : MonoBehaviour
         {
             timeSwingingUp += Time.deltaTime;
 
-            hammerRotator.transform.localRotation = Quaternion.Lerp(hammerRotator.transform.localRotation, Quaternion.Euler(angleTop, 0, 90), 3 * Time.deltaTime / swingTimeUp);
+            hammerRotator.transform.localRotation = Quaternion.Lerp(hammerRotator.transform.localRotation, Quaternion.Euler(angleTop, 0, 90), 3 * Time.deltaTime / (swingTimeUp * upgrades.hammerSpeedUpgrade));
             if (timeSwingingUp >= swingTimeUp)
             {
                 hammerSwingingUp = false;

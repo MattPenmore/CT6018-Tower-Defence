@@ -10,7 +10,7 @@ public class TurretController : MonoBehaviour
     [SerializeField]
     List<string> spawnerNames;
 
-
+    Upgrades upgrades;
     public int damage = 25;
     public float Range;
     private float singleGridDistance = 17.3333f;
@@ -31,13 +31,15 @@ public class TurretController : MonoBehaviour
     {
         enemiesInRange = new List<GameObject>();
         enemiesInSight = new List<GameObject>();
+
+        upgrades = FindObjectOfType<Upgrades>();
     }
 
     // Update is called once per frame
     void Update()
     {
         timeToShoot -= Time.deltaTime;
-        rangeTrigger.radius = Range * singleGridDistance + (singleGridDistance / 2);
+        rangeTrigger.radius = (Range + upgrades.turretRangeUpgrade) * singleGridDistance + (singleGridDistance / 2);
         if(enemiesInRange.Count != 0)
         {
             for(int i = enemiesInRange.Count -1; i >= 0; i--)
@@ -151,9 +153,9 @@ public class TurretController : MonoBehaviour
 
             Debug.DrawRay(turretRotator.transform.position, target.transform.position - turretRotator.transform.position,
             Color.red);
-            target.GetComponent<MonsterController>().currentHealth -= damage;
+            target.GetComponent<MonsterController>().currentHealth -= damage * upgrades.turretDamageUpgrade;
             shootAnim.SetActive(true);
-            timeToShoot = shootSpeed;
+            timeToShoot = shootSpeed / upgrades.turretSpeedUpgrade;
         }
     }
 }

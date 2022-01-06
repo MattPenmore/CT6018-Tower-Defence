@@ -337,7 +337,12 @@
 "Assets/Scripts/Towers/CircleRotate.cs"
 "Assets/Scripts/Towers/ElectricController.cs"
 "Assets/Scripts/Towers/HammerController.cs"
+"Assets/Scripts/Towers/MachineGunController.cs"
+"Assets/Scripts/Towers/RocketController.cs"
 "Assets/Scripts/Towers/TurretController.cs"
+"Assets/Scripts/Upgrades/UpgradeButton.cs"
+"Assets/Scripts/Upgrades/UpgradeMenuController.cs"
+"Assets/Scripts/Upgrades/Upgrades.cs"
 -langversion:8.0
 
 /deterministic

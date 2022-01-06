@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class ElectricController : MonoBehaviour
 {
+    Upgrades upgrades;
+
+    [SerializeField]
+    int damageFinal;
+
+
     public int damage = 25;
     public float Range;
     private float singleGridDistance = 17.3333f;
@@ -11,18 +17,22 @@ public class ElectricController : MonoBehaviour
     public float shockSpeed;
     public float timeToShock;
 
+
+    
+
     public List<GameObject> enemiesInRange;
 
     // Start is called before the first frame update
     void Start()
     {
         enemiesInRange = new List<GameObject>();
+        upgrades = FindObjectOfType<Upgrades>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        rangeTrigger.radius = Range * singleGridDistance + (singleGridDistance / 2);
+        rangeTrigger.radius = (Range + upgrades.electricRangeUpgrade) * singleGridDistance + (singleGridDistance / 2);
 
         timeToShock -= Time.deltaTime;
 
@@ -39,10 +49,10 @@ public class ElectricController : MonoBehaviour
 
         if (enemiesInRange.Count != 0 && timeToShock <= 0)
         {           
-            timeToShock = shockSpeed;
+            timeToShock = shockSpeed / upgrades.electricSpeedUpgrade;
             foreach (GameObject monster in enemiesInRange)
             {
-                monster.GetComponent<MonsterController>().currentHealth -= damage;
+                monster.GetComponent<MonsterController>().currentHealth -= damage * upgrades.electricDamageUpgrade;
             }
         }
     }

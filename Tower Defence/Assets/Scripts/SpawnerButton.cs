@@ -104,6 +104,8 @@ public class SpawnerButton : MonoBehaviour
                     objectHit.parent = null;
                     Destroy(objectHit.gameObject);
                     numSpawners -= 1;
+                    score.GetComponent<Score>().score += System.Math.Floor(baseValue * System.Math.Pow(exponenntialRatio, numSpawners) / 5f);
+
                     GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
                     foreach (GameObject monster in monsters)
                     {

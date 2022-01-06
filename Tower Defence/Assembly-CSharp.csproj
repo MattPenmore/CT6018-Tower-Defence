@@ -68,11 +68,16 @@
     <Compile Include="Assets\Scripts\MonsterSpawning.cs" />
     <Compile Include="Assets\Scripts\Score.cs" />
     <Compile Include="Assets\Scripts\Grid\GridCell.cs" />
+    <Compile Include="Assets\Scripts\Towers\ElectricController.cs" />
+    <Compile Include="Assets\Scripts\Towers\CircleRotate.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Pathfind.cs" />
     <Compile Include="Assets\Scripts\Towers\HammerController.cs" />
-    <Compile Include="Assets\Scripts\Towers\ElectricController.cs" />
-    <Compile Include="Assets\Scripts\Towers\CircleRotate.cs" />
+    <Compile Include="Assets\Scripts\Upgrades\Upgrades.cs" />
+    <Compile Include="Assets\Scripts\Towers\RocketController.cs" />
+    <Compile Include="Assets\Scripts\Towers\MachineGunController.cs" />
+    <Compile Include="Assets\Scripts\Upgrades\UpgradeButton.cs" />
+    <Compile Include="Assets\Scripts\Upgrades\UpgradeMenuController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\LightningBolt\Readme.txt" />

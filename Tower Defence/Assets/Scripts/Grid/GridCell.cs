@@ -12,6 +12,13 @@ public class GridCell : MonoBehaviour
     public bool isTarget;
     public int distanceToBase;
     public bool isObstacle;
+    public bool isEdge;
+
+    [SerializeField]
+    MeshRenderer cellMaterial;
+
+    public bool isRiver;
+    public bool isBridge;
 
     
     public int f => -g + h;
@@ -27,12 +34,31 @@ public class GridCell : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        FindAdjacentCells();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(isRiver)
+        {
+            notSelectable = true;
+            if(isBridge)
+            {
+                isObstacle = false;
+                cellMaterial.material.color = new Color32(139, 69, 19,255);
+            }
+            else
+            {
+                isObstacle = true;
+                cellMaterial.material.color = new Color32(0, 0, 139, 255);
+            }
+        }
+        else
+        {
+            cellMaterial.material.color = Color.white;
+        }
+
         if (notSelectable)
         {
             selector.material.SetColor("_Color", Color.red);
@@ -51,15 +77,15 @@ public class GridCell : MonoBehaviour
             selector.enabled = false;
         }
 
-        //if (Input.GetMouseButtonUp(0))
-        //{
-        //    isSelector = false;
-        //}
+        if (adjacentCells.Count < 6)
+            isEdge = true;
+        else
+            isEdge = false;
     }
 
     public List<GameObject> FindAdjacentCells()
     {
-        List<GameObject> adjacentCells = new List<GameObject>();
+        adjacentCells = new List<GameObject>();
         GameObject[] gos;
         gos = GameObject.FindGameObjectsWithTag("Cell");
 

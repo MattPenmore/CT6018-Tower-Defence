@@ -5,15 +5,39 @@ using System.Linq;
 
 public class MonsterSpawning : MonoBehaviour
 {
+    [SerializeField]
+    string monsterName;
     public GameObject Monster;
     public float spawnTime;
+
+    [SerializeField]
     float timeToSpawn;
+
     public GameObject[] spawnPoints;
+
+    
+    Upgrades upgrades;
 
     // Start is called before the first frame update
     void Start()
     {
-        timeToSpawn = spawnTime;
+        upgrades = FindObjectOfType<Upgrades>();
+        if (monsterName == "goblin")
+        {
+            timeToSpawn = spawnTime / upgrades.goblinSpawnUpgrade;
+        }
+        if (monsterName == "skeleton")
+        {
+            timeToSpawn = spawnTime / upgrades.skeletonSpawnUpgrade;
+        }
+        if (monsterName == "slime")
+        {
+            timeToSpawn = spawnTime / upgrades.slimeSpawnUpgrade;
+        }
+        if (monsterName == "ogre")
+        {
+            timeToSpawn = spawnTime / upgrades.ogreSpawnUpgrade;
+        }
     }
 
     // Update is called once per frame
@@ -27,7 +51,23 @@ public class MonsterSpawning : MonoBehaviour
             GameObject monster = Instantiate(Monster, spawnPoints[spawnNumber].transform);
             monster.transform.parent = null;
             monster.transform.localScale = Monster.transform.localScale;
-            timeToSpawn = spawnTime;
+            if (monsterName == "goblin")
+            {
+                timeToSpawn = spawnTime / upgrades.goblinSpawnUpgrade;
+            }
+            if (monsterName == "skeleton")
+            {
+                timeToSpawn = spawnTime / upgrades.skeletonSpawnUpgrade;
+            }
+            if (monsterName == "slime")
+            {
+                timeToSpawn = spawnTime / upgrades.slimeSpawnUpgrade;
+            }
+            if (monsterName == "ogre")
+            {
+                timeToSpawn = spawnTime / upgrades.ogreSpawnUpgrade;
+            }
+
         }
     }
 }

@@ -8,6 +8,8 @@ public class HexGrid : MonoBehaviour
     public int width = 6;
     public int height = 6;
 
+    [SerializeField]
+    CreateRiver createRiver;
     public GridCell cellPrefab;
 
     GridCell[] cells;
@@ -26,7 +28,12 @@ public class HexGrid : MonoBehaviour
             }
 
         }
+    }
 
+
+    private void Start()
+    {
+        StartCoroutine(startCreatingRivers());
     }
 
     void CreateCell(int x, int z, int i)
@@ -43,5 +50,10 @@ public class HexGrid : MonoBehaviour
         cell.GetComponent<GridCell>().coordinates = new Vector3(x - Mathf.FloorToInt(z / 2f),-(x - Mathf.FloorToInt(z / 2f)) - z ,z);
     }
 
-    
+    IEnumerator startCreatingRivers()
+    {
+        yield return new WaitForSeconds(0.1f);
+        createRiver.CreateNewRiver();
+
+    }
 }

@@ -34,7 +34,8 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if(currentHover == gameObject || currentHover == image)
         {
             infoText.transform.parent.gameObject.SetActive(true);
-            infoText.text = text;
+            infoText.text = "Cost: " + cost.ToString() + "\n \n" +
+                text;
             leftUI = false;
 
             infoText.transform.parent.transform.position = transform.position - new Vector3(transform.GetComponent<RectTransform>().sizeDelta.x / 2, 0, 0) + new Vector3(-10, 0, 0);

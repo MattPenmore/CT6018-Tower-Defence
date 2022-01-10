@@ -52,11 +52,21 @@ public class TowerButtons : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        upgradeButtonsPair = new Dictionary<UpgradeButton, int>();
         int i = 0;
         foreach(UpgradeButton button in upgradeButtons)
         {
             upgradeButtonsPair.Add(button, upgradeButtonValues[i]);
             i++;
+        }
+
+        //Make upgrade buttons available if requirements for number of towers is met.
+        foreach (KeyValuePair<UpgradeButton, int> button in upgradeButtonsPair)
+        {
+            if (button.Value <= numTowers)
+            {
+                button.Key.isAvailable = true;
+            }
         }
 
         gos = GameObject.FindGameObjectsWithTag("Cell");

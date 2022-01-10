@@ -54,6 +54,9 @@ MonoBehaviour:
   isTarget: 0
   distanceToBase: 0
   isObstacle: 0
+  cellMaterial: {fileID: 1629913546433469679}
+  isRiver: 0
+  isBridge: 0
   g: 0
   h: 0
   adjacentCells: []
@@ -106,6 +109,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5404524674376244151}
     m_Modifications:
+    - target: {fileID: 1143877154688083014, guid: 14b5ef41911d35a4185ca6c4995803ed, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3167943831339648785, guid: 14b5ef41911d35a4185ca6c4995803ed, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5797613099126967778, guid: 14b5ef41911d35a4185ca6c4995803ed, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -171,6 +182,11 @@ PrefabInstance:
 --- !u!4 &5274843192594855243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5797613099126967778, guid: 14b5ef41911d35a4185ca6c4995803ed, type: 3}
+  m_PrefabInstance: {fileID: 1819809985259747497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1629913546433469679 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1143877154688083014, guid: 14b5ef41911d35a4185ca6c4995803ed, type: 3}
   m_PrefabInstance: {fileID: 1819809985259747497}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &3654547589342068664 stripped

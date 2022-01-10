@@ -6,6 +6,8 @@ public class MainBase : MonoBehaviour
 {
     public GameObject closest = null;
 
+    public List<GameObject> closestCells = new List<GameObject>();
+
     private void Start()
     {
         FindClosestCells();
@@ -28,6 +30,7 @@ public class MainBase : MonoBehaviour
             }
         }
         closest.GetComponent<GridCell>().isTarget = true;
+        closestCells.Add(closest);
         Vector3 closestCoordinates = closest.GetComponent<GridCell>().coordinates;
         GameObject[] monsters;
         monsters = GameObject.FindGameObjectsWithTag("Monster");
@@ -38,6 +41,7 @@ public class MainBase : MonoBehaviour
             if (Mathf.Abs(Coordinates.x - closestCoordinates.x) <=2 && Mathf.Abs(Coordinates.y - closestCoordinates.y) <= 2 && Mathf.Abs(Coordinates.z - closestCoordinates.z) <=2)
             {
                 go.GetComponent<GridCell>().notSelectable = true;
+                closestCells.Add(go);
             }
         }
     }

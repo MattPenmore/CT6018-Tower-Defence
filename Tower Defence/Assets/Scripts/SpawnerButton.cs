@@ -30,12 +30,37 @@ public class SpawnerButton : MonoBehaviour
     float exponenntialRatio = 1.25f;
 
     [SerializeField]
+    List<UpgradeButton> upgradeButtons;
+
+    [SerializeField]
+    List<int> upgradeButtonValues;
+
+    //Upgrade Buttons for the towers, and number of towers of that type needed to become available
+    Dictionary<UpgradeButton, int> upgradeButtonsPair;
+
+    [SerializeField]
     Text costText;
 
     List<GameObject> isAdjacent;
     // Start is called before the first frame update
     void Start()
     {
+        upgradeButtonsPair = new Dictionary<UpgradeButton, int>();
+        int i = 0;
+        foreach (UpgradeButton button in upgradeButtons)
+        {
+            upgradeButtonsPair.Add(button, upgradeButtonValues[i]);
+            i++;
+        }
+
+        //Make upgrade buttons available if requirements for number of towers is met.
+        foreach (KeyValuePair<UpgradeButton, int> button in upgradeButtonsPair)
+        {
+            if (button.Value <= numSpawners)
+            {
+                button.Key.isAvailable = true;
+            }
+        }
 
         gos = GameObject.FindGameObjectsWithTag("Cell");
         spawnerToggle.onValueChanged.AddListener(OnToggleValueChanged);
@@ -165,6 +190,15 @@ public class SpawnerButton : MonoBehaviour
                             foreach (GameObject monster in monsters)
                             {
                                 monster.GetComponent<MonsterController>().needToPathfind = true;
+                            }
+
+                            //Make upgrade buttons available if requirements for number of towers is met.
+                            foreach (KeyValuePair<UpgradeButton, int> button in upgradeButtonsPair)
+                            {
+                                if (button.Value <= numSpawners)
+                                {
+                                    button.Key.isAvailable = true;
+                                }
                             }
                         }
                         isPlacable = true;

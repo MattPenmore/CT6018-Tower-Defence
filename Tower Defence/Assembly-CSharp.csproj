@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -67,7 +67,7 @@
     <Compile Include="Assets\Scripts\Upgrades\UpgradeButton.cs" />
     <Compile Include="Assets\Scripts\Grid\HexGrid.cs" />
     <Compile Include="Assets\Scripts\TowerButtons.cs" />
-    <Compile Include="Assets\Scripts\MonsterController.cs" />
+    <Compile Include="Assets\Scripts\Monsters\MonsterController.cs" />
     <Compile Include="Assets\Scripts\Grid\GridMetrics.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawning.cs" />
     <Compile Include="Assets\Scripts\Score.cs" />
@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Pathfind.cs" />
     <Compile Include="Assets\Scripts\Towers\HammerController.cs" />
+    <Compile Include="Assets\Scripts\Grid\CreateRiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\LightningBolt\Readme.txt" />

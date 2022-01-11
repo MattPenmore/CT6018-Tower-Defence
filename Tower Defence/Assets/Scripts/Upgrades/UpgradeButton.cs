@@ -7,11 +7,14 @@ using UnityEngine.EventSystems;
 public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
-    string UpgradeName;
+    string upgradeName;
+
+    [SerializeField]
+    Upgrades upgrades;
+
     [SerializeField]
     GameObject score;
 
-    [SerializeField]
     GameObject image;
 
     [SerializeField]
@@ -28,6 +31,11 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     bool leftUI;
 
     GameObject currentHover;
+
+    private void Start()
+    {
+        image = transform.GetChild(0).gameObject;
+    }
 
     private void Update()
     {
@@ -52,8 +60,14 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void ButtonPressed()
     {
-        score.GetComponent<Score>().score -= cost;
-        hasBeenPressed = true;
+        if(score.GetComponent<Score>().score >= cost)
+        {
+            infoText.transform.parent.gameObject.SetActive(false);
+            score.GetComponent<Score>().score -= cost;
+            hasBeenPressed = true;
+            upgrades.Invoke(upgradeName, 0f);
+        }
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)

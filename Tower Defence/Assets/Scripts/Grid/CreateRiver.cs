@@ -185,7 +185,23 @@ public class CreateRiver : MonoBehaviour
         int randBridge = Random.Range(4, riverTiles.Count - 4);
         if(!riverTiles[randBridge].GetComponent<GridCell>().isBridge)
         {
-            riverTiles[randBridge].GetComponent<GridCell>().isBridge = true;
+            int numRiverTiles = 0;
+            foreach(GameObject cell in riverTiles[randBridge].GetComponent<GridCell>().FindAdjacentCells())
+            {
+                if (cell.GetComponent<GridCell>().isRiver)
+                {
+                    numRiverTiles += 1;
+                }
+            }
+
+            if(numRiverTiles == 2)
+            {
+                riverTiles[randBridge].GetComponent<GridCell>().isBridge = true;
+            }
+            else
+            {
+                CreateBridge();
+            }
         }
         else
         {

@@ -60,17 +60,18 @@
     <Compile Include="Assets\Scripts\Grid\CellMesh.cs" />
     <Compile Include="Assets\Scripts\MonsterOnClick.cs" />
     <Compile Include="Assets\LightningBolt\LightningBoltScript.cs" />
-    <Compile Include="Assets\Scripts\SpawnerButton.cs" />
+    <Compile Include="Assets\Scripts\UI\SpawnerButton.cs" />
     <Compile Include="Assets\Scripts\Towers\RocketController.cs" />
     <Compile Include="Assets\Scripts\Upgrades\Upgrades.cs" />
-    <Compile Include="Assets\Scripts\SideMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\SideMenu.cs" />
     <Compile Include="Assets\Scripts\Upgrades\UpgradeButton.cs" />
     <Compile Include="Assets\Scripts\Grid\HexGrid.cs" />
-    <Compile Include="Assets\Scripts\TowerButtons.cs" />
+    <Compile Include="Assets\Scripts\UI\TowerButtons.cs" />
     <Compile Include="Assets\Scripts\Monsters\MonsterController.cs" />
+    <Compile Include="Assets\Scripts\Grid\CreateRiver.cs" />
     <Compile Include="Assets\Scripts\Grid\GridMetrics.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawning.cs" />
-    <Compile Include="Assets\Scripts\Score.cs" />
+    <Compile Include="Assets\Scripts\UI\Score.cs" />
     <Compile Include="Assets\Scripts\Grid\GridCell.cs" />
     <Compile Include="Assets\Scripts\Towers\MachineGunController.cs" />
     <Compile Include="Assets\Scripts\Towers\ElectricController.cs" />
@@ -78,7 +79,15 @@
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Pathfind.cs" />
     <Compile Include="Assets\Scripts\Towers\HammerController.cs" />
-    <Compile Include="Assets\Scripts\Grid\CreateRiver.cs" />
+    <Compile Include="Assets\Scripts\UI\TowerInfo\TurretInformation.cs" />
+    <Compile Include="Assets\Scripts\UI\TowerInfo\MachineGunInformation.cs" />
+    <Compile Include="Assets\Scripts\UI\TowerInfo\ElectricInformation.cs" />
+    <Compile Include="Assets\Scripts\UI\TowerInfo\HammerInformation.cs" />
+    <Compile Include="Assets\Scripts\UI\TowerInfo\RocketInformation.cs" />
+    <Compile Include="Assets\Scripts\UI\SpawnerInfo\GoblinSpawnerInformation.cs" />
+    <Compile Include="Assets\Scripts\UI\SpawnerInfo\SkeletonSpawnerInformation.cs" />
+    <Compile Include="Assets\Scripts\UI\SpawnerInfo\SlimeSpawnerInformation.cs" />
+    <Compile Include="Assets\Scripts\UI\SpawnerInfo\OgreSpawnerInformation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\LightningBolt\Readme.txt" />

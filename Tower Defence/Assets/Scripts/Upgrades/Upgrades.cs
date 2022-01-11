@@ -125,7 +125,6 @@ public class Upgrades : MonoBehaviour
     public void GoblinSpawnTimeHalf()
     {
         goblinSpawnUpgrade *= 2;
-        goblinRewardUpgrade *= 2;
     }
 
     public void GoblinHealthDouble()
@@ -139,7 +138,6 @@ public class Upgrades : MonoBehaviour
     public void SkeletonSpawnTimeHalf()
     {
         skeletonSpawnUpgrade *= 2;
-        skeletonRewardUpgrade *= 2;
     }
 
     public void SkeletonHealthDouble()
@@ -153,7 +151,6 @@ public class Upgrades : MonoBehaviour
     public void SlimeSpawnTimeHalf()
     {
         slimeSpawnUpgrade *= 2;
-        slimeRewardUpgrade *= 2;
     }
 
     public void SlimeHealthDouble()
@@ -167,7 +164,6 @@ public class Upgrades : MonoBehaviour
     public void OgreSpawnTimeHalf()
     {
         ogreSpawnUpgrade *= 2;
-        ogreRewardUpgrade *= 2;
     }
 
     public void OgreHealthDouble()

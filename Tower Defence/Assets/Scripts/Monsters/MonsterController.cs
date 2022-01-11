@@ -83,6 +83,7 @@ public class MonsterController : MonoBehaviour
             int index = System.Array.IndexOf(Path, currentCell);
             if (Path.Length == index + 1 || Path.Length == index + 2)
             {
+                mainBase.GetComponent<Score>().score -= scoreValue;
                 Destroy(gameObject);
             }
 

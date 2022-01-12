@@ -70,7 +70,7 @@ public class Pathfind : MonoBehaviour
                 {
                     continue;
                 }
-                //Check if  path to currentr cell can be reduced. if not continue. If so reduce it and break.
+                //Check if  path to current cell can be reduced. if not continue. If so reduce it and break.
                 if(closedPathCells.Contains(adjacentCell))
                 {
                     if (adjacentCell.GetComponent<GridCell>().g > currentCell.GetComponent<GridCell>().g + 1)
@@ -82,7 +82,7 @@ public class Pathfind : MonoBehaviour
                         break;
                     }
 
-                        continue;
+                    continue;
                 }
                 // If not in open list add and compute g and h
                 if (!(openPathCells.Contains(adjacentCell)))

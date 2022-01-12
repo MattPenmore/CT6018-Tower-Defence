@@ -10,6 +10,10 @@ public class TowerButtons : MonoBehaviour
     [SerializeField]
     string towerName;
 
+    [SerializeField]
+    string[] spawnerNames;
+
+
     public Toggle towerToggle;
     public Toggle[] otherTowersToggle;
     private Image toggleBackground;
@@ -18,11 +22,10 @@ public class TowerButtons : MonoBehaviour
     public GameObject Tower;
     public GameObject mainBase;
     public int maxPathLength = 500;
-    List<GameObject> Spawners;
+    List<GameObject> Spawners = new List<GameObject>();
 
     public double cost;
-    [SerializeField]
-    double numTowers = 0;
+    public int numTowers = 0;
     [SerializeField]
     double baseValue;
     [SerializeField]
@@ -154,11 +157,22 @@ public class TowerButtons : MonoBehaviour
                         if(!go.GetComponent<GridCell>().isObstacle)
                         {
                             go.GetComponent<GridCell>().isObstacle = true;
-                            Spawners = GameObject.FindGameObjectsWithTag("Spawner").ToList();
                             GameObject endPoint = mainBase.GetComponent<MainBase>().closest;
                             if(currentHit != previousHit)
                             {
                                 isPlacable = true;
+                                Spawners.Clear();
+                                foreach (string name in spawnerNames)
+                                {
+                                    List<GameObject> spawners = new List<GameObject>();
+                                    spawners = GameObject.FindGameObjectsWithTag(name).ToList();
+                                    foreach(GameObject spawn in spawners)
+                                    {
+                                        Spawners.Add(spawn);
+                                    }
+                                }
+                                //Spawners = GameObject.FindGameObjectsWithTag("Spawner").ToList();
+
                                 foreach (GameObject spawner in Spawners)
                                 {
                                     List<GameObject> Path = new List<GameObject>();

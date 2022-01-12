@@ -19,6 +19,11 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(score < 0)
+        {
+            score = 0;
+        }
+
         double exponent = (System.Math.Floor(System.Math.Log10(System.Math.Abs(score))));
         double mantissa = (score / System.Math.Pow(10, exponent));
 

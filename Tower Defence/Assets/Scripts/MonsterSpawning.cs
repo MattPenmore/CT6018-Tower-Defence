@@ -11,9 +11,12 @@ public class MonsterSpawning : MonoBehaviour
     public float spawnTime;
 
     [SerializeField]
+    Vector3 monsterOffset;
+
+    [SerializeField]
     float timeToSpawn;
 
-    public GameObject[] spawnPoints;
+    List<GameObject> spawnPoints;
 
     
     Upgrades upgrades;
@@ -21,6 +24,8 @@ public class MonsterSpawning : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spawnPoints = transform.parent.GetComponent<GridCell>().adjacentCells;
+
         upgrades = FindObjectOfType<Upgrades>();
         if (monsterName == "goblin")
         {
@@ -47,10 +52,9 @@ public class MonsterSpawning : MonoBehaviour
 
         if(timeToSpawn <= 0)
         {
-            int spawnNumber = Random.Range(0, spawnPoints.Length);
-            GameObject monster = Instantiate(Monster, spawnPoints[spawnNumber].transform);
+            int spawnNumber = Random.Range(0, spawnPoints.Count);
+            GameObject monster = Instantiate(Monster, spawnPoints[spawnNumber].transform.position + monsterOffset, Monster.transform.rotation);
             monster.transform.parent = null;
-            monster.transform.localScale = Monster.transform.localScale;
             if (monsterName == "goblin")
             {
                 timeToSpawn = spawnTime / upgrades.goblinSpawnUpgrade;

@@ -112,17 +112,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf61ce1cdbbbc604780ccc1fbe96462c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterName: goblin
+  maxLifetime: 500
+  currentLifeTime: 0
   maxPathLength: 500
   Path: []
   currentCell: {fileID: 0}
   endPoint: {fileID: 0}
   moveSpeed: 5
-  offset: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 5, z: 0}
   maxHealth: 100
   currentHealth: 100
   scoreValue: 10
   needToPathfind: 0
-  monsterName: goblin
 --- !u!114 &2032670701411554117
 MonoBehaviour:
   m_ObjectHideFlags: 0

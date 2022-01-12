@@ -5,8 +5,13 @@ using System.Linq;
 
 public class MonsterController : MonoBehaviour
 {
+    public string monsterName;
     [SerializeField]
-    string monsterName;
+    float maxLifetime = 500;
+
+    [SerializeField]
+    float currentLifeTime;
+
     public int maxPathLength = 500;
     public GameObject[] Path;
     GameObject pathfind;
@@ -23,7 +28,10 @@ public class MonsterController : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
     public int scoreValue;
-    public bool needToPathfind = false;
+    public bool needToPathfind = true;
+
+    float timeToPathFind = 5;
+    float timeUntilPathfind = 5;
 
     
     Upgrades upgrades;
@@ -32,6 +40,7 @@ public class MonsterController : MonoBehaviour
     void Start()
     {
         mainBase = GameObject.FindGameObjectWithTag("Base");
+        currentLifeTime = 0;
         pathfind = gameObject;
         endPoint = mainBase.GetComponent<MainBase>().closest;
         upgrades = FindObjectOfType<Upgrades>();
@@ -65,6 +74,12 @@ public class MonsterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(currentLifeTime >= maxLifetime)
+        {
+            Destroy(gameObject);
+        }
+
+
         if(currentHealth <= 0)
         {
             mainBase.GetComponent<Score>().score += scoreValue; 
@@ -77,7 +92,7 @@ public class MonsterController : MonoBehaviour
             needToPathfind = false;
         }
 
-        FindCurentCell();
+        FindCurrentCell();
         if (previousPathingCell != null && Path.Contains(currentCell) && !needToPathfind)
         {
             int index = System.Array.IndexOf(Path, currentCell);
@@ -105,12 +120,20 @@ public class MonsterController : MonoBehaviour
         }
         else
         {
-            needToPathfind = true;
+            timeUntilPathfind -= Time.deltaTime;
+            if(timeUntilPathfind <= 0)
+            {
+                //Prevent all occuring at same time
+                float rand = Random.Range(-1f, 1f);
+
+                timeUntilPathfind = timeToPathFind + rand;
+                needToPathfind = true;
+            }
         }
         
     }
 
-    void FindCurentCell()
+    void FindCurrentCell()
     {
         RaycastHit hit;
         Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.down));
@@ -137,12 +160,13 @@ public class MonsterController : MonoBehaviour
             //normalize it and account for movement speed.
             rb.velocity = offset;
             //actually move the character.
+
         }
     }
 
     public void PathFind()
     {
-        FindCurentCell();
+        FindCurrentCell();
 
         if (previousPathingCell != null && Path.Contains(currentCell))
         {
@@ -178,6 +202,7 @@ public class MonsterController : MonoBehaviour
             else
             {
                 Path = pathfind.GetComponent<Pathfind>().FindPath(currentCell, endPoint).ToArray();
+                int index = System.Array.IndexOf(Path, currentCell);
                 if (Path.Length == 0)
                 {
                     MoveTowards(endPoint.transform.position);
@@ -189,15 +214,15 @@ public class MonsterController : MonoBehaviour
                         Destroy(gameObject);
                     }
 
-                    offset = Path[0].transform.position - transform.position + new Vector3(0, transform.position.y - Path[0].transform.position.y, 0);
+                    offset = Path[index].transform.position - transform.position + new Vector3(0, transform.position.y - Path[index].transform.position.y, 0);
                     if (offset.magnitude > 1f)
                     {
-                        Vector3 Target = Path[0].transform.position;
+                        Vector3 Target = Path[index].transform.position;
                         MoveTowards(Target);
                     }
                     else
                     {
-                        Vector3 Target = Path[1].transform.position;
+                        Vector3 Target = Path[index + 1].transform.position;
                         MoveTowards(Target);
                         previousCell = currentCell;
                         previousPathingCell = currentCell;
@@ -208,6 +233,12 @@ public class MonsterController : MonoBehaviour
         else if (currentCell != null)
         {
             Path = pathfind.GetComponent<Pathfind>().FindPath(currentCell, endPoint).ToArray();
+            FindCurrentCell();
+            if(!Path.Contains(currentCell))
+            {
+                Debug.Log("Break");
+            }
+            int index = System.Array.IndexOf(Path, currentCell);
             if (Path.Length == 0)
             {
                 MoveTowards(endPoint.transform.position);
@@ -219,15 +250,15 @@ public class MonsterController : MonoBehaviour
                     Destroy(gameObject);
                 }
 
-                offset = Path[0].transform.position - transform.position + new Vector3(0, transform.position.y - Path[0].transform.position.y, 0);
+                offset = Path[index].transform.position - transform.position + new Vector3(0, transform.position.y - Path[index].transform.position.y, 0);
                 if (offset.magnitude > 1f)
                 {
-                    Vector3 Target = Path[0].transform.position;
+                    Vector3 Target = Path[index].transform.position;
                     MoveTowards(Target);
                 }
                 else
                 {
-                    Vector3 Target = Path[1].transform.position;
+                    Vector3 Target = Path[index + 1].transform.position;
                     MoveTowards(Target);
                     previousCell = currentCell;
                     previousPathingCell = currentCell;

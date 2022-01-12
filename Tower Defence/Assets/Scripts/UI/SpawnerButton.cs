@@ -22,8 +22,8 @@ public class SpawnerButton : MonoBehaviour
     GameObject score;
 
     public double cost;
-    [SerializeField]
-    double numSpawners = 0;
+
+    public int numSpawners = 0;
     [SerializeField]
     double baseValue;
     [SerializeField]

@@ -340,6 +340,7 @@
 "Assets/Scripts/Towers/RocketController.cs"
 "Assets/Scripts/Towers/TurretController.cs"
 "Assets/Scripts/UI/Score.cs"
+"Assets/Scripts/UI/Shop.cs"
 "Assets/Scripts/UI/SideMenu.cs"
 "Assets/Scripts/UI/SpawnerButton.cs"
 "Assets/Scripts/UI/SpawnerInfo/GoblinSpawnerInformation.cs"

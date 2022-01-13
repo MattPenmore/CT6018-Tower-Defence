@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Pathfind.cs" />
     <Compile Include="Assets\Scripts\Towers\HammerController.cs" />
+    <Compile Include="Assets\Scripts\UI\Shop.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\LightningBolt\Readme.txt" />

@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.IO;
-
+using UnityEngine.SceneManagement;
 public class SaveAndLoad : MonoBehaviour
 {
     public GameObject[] Upgrades;
@@ -25,6 +25,15 @@ public class SaveAndLoad : MonoBehaviour
 
     [SerializeField]
     GameObject savePanel;
+
+    [SerializeField]
+    GameObject shopPanel;
+
+    [SerializeField]
+    GameObject gemStorePanel;
+
+    [SerializeField]
+    GameObject optionsPanel;
 
     [SerializeField]
     List<GameObject> prefabTowers;
@@ -69,7 +78,10 @@ public class SaveAndLoad : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            savePanel.SetActive(!savePanel.activeSelf);
+            savePanel.SetActive(true);
+            shopPanel.SetActive(false);
+            gemStorePanel.SetActive(false);
+            optionsPanel.SetActive(!optionsPanel.activeSelf);
         }
     }
 
@@ -389,6 +401,11 @@ public class SaveAndLoad : MonoBehaviour
         {
             Debug.Log("No game saved!");
         }
+    }
+
+    public void NewGame()
+    {
+        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 
     void ClearTowers()

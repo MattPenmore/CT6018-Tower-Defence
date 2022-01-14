@@ -22,9 +22,6 @@ public class SkeletonSpawnerInformation : MonoBehaviour, IPointerEnterHandler, I
     GameObject costText;
 
     [SerializeField]
-    GameObject Image;
-
-    [SerializeField]
     GameObject backGround;
 
     [SerializeField]
@@ -32,7 +29,6 @@ public class SkeletonSpawnerInformation : MonoBehaviour, IPointerEnterHandler, I
 
     [SerializeField]
     Text infoText;
-
 
     [SerializeField]
     GameObject score;
@@ -48,12 +44,11 @@ public class SkeletonSpawnerInformation : MonoBehaviour, IPointerEnterHandler, I
     float health;
     float value;
 
-
     // Update is called once per frame
     void Update()
     {
-        //If mouse over button Set text of text box, to display basic information. If mouse leaves button, turn text box off
-        if (currentHover == gameObject || currentHover == nameText || currentHover == costText || currentHover == Image || currentHover == backGround)
+        //If mouse over button Set text of text box, to display basic information. If mouse leaves button, turn text box off.  Bug where box flickers when over image in build, but not editor
+        if (currentHover == backGround)
         {
             cost = costObj.cost;
             health = monster.GetComponent<MonsterController>().maxHealth * upgrades.skeletonHealthUpgrade;
@@ -79,8 +74,6 @@ public class SkeletonSpawnerInformation : MonoBehaviour, IPointerEnterHandler, I
             infoText.transform.parent.gameObject.SetActive(false);
             leftUI = true;
         }
-
-
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -94,6 +87,6 @@ public class SkeletonSpawnerInformation : MonoBehaviour, IPointerEnterHandler, I
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        currentHover = null;
+        currentHover = eventData.pointerCurrentRaycast.gameObject;
     }
 }

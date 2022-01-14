@@ -19,9 +19,6 @@ public class RocketInformation : MonoBehaviour, IPointerEnterHandler, IPointerEx
     GameObject costText;
 
     [SerializeField]
-    GameObject Image;
-
-    [SerializeField]
     GameObject backGround;
 
     [SerializeField]
@@ -44,12 +41,11 @@ public class RocketInformation : MonoBehaviour, IPointerEnterHandler, IPointerEx
     float speed;
     float range;
 
-
     // Update is called once per frame
     void Update()
     {
-        //If mouse over button Set text of text box, to display basic information. If mouse leaves button, turn text box off
-        if (currentHover == gameObject || currentHover == nameText || currentHover == costText || currentHover == Image || currentHover == backGround)
+        //If mouse over button Set text of text box, to display basic information. If mouse leaves button, turn text box off.  Bug where box flickers when over image in build, but not editor
+        if (currentHover == backGround)
         {
             cost = costObj.cost;
             damage = tower.GetComponent<RocketController>().damage * upgrades.rocketDamageUpgrade;
@@ -73,8 +69,6 @@ public class RocketInformation : MonoBehaviour, IPointerEnterHandler, IPointerEx
             infoText.transform.parent.gameObject.SetActive(false);
             leftUI = true;
         }
-
-
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -88,6 +82,6 @@ public class RocketInformation : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        currentHover = null;
+        currentHover = eventData.pointerCurrentRaycast.gameObject;
     }
 }

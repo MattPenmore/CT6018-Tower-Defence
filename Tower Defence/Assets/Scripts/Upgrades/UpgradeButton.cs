@@ -84,6 +84,6 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        currentHover = null;
+            currentHover = eventData.pointerCurrentRaycast.gameObject;
     }
 }

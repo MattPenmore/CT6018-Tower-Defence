@@ -48,13 +48,13 @@ public class SaveAndLoad : MonoBehaviour
     List<KeyValuePair<string, GameObject>> spawnerNames = new List<KeyValuePair<string, GameObject>>();
     List<KeyValuePair<string, GameObject>> monsterNames = new List<KeyValuePair<string, GameObject>>();
 
+    [SerializeField]
     Shop gems;
 
     Vector3 offset = new Vector3();
 
     private void Start()
     {
-        gems = FindObjectOfType<Shop>();
 
         //Create list of key value pairs for tower prefabs and their names
         foreach(GameObject prefabTower in prefabTowers)
@@ -221,17 +221,17 @@ public class SaveAndLoad : MonoBehaviour
         Save save = CreateSaveGameObject();
 
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
+        FileStream file = File.Create(Application.dataPath + "/gamesave.save");
         bf.Serialize(file, save);
         file.Close();
 
-        Debug.Log("Game Saved");
+        Debug.Log("Game Saved " + Application.dataPath.ToString());
     }
 
     public void LoadGame()
     {
         // If save file exists
-        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        if (File.Exists(Application.dataPath + "/gamesave.save"))
         {
             //Destroy all towers, spawners and monsters on the map
             ClearTowers();
@@ -240,7 +240,7 @@ public class SaveAndLoad : MonoBehaviour
 
             // Get information from save file
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            FileStream file = File.Open(Application.dataPath + "/gamesave.save", FileMode.Open);
             Save save = (Save)bf.Deserialize(file);
             file.Close();
 

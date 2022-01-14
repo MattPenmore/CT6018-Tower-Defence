@@ -22,9 +22,6 @@ public class SlimeSpawnerInformation : MonoBehaviour, IPointerEnterHandler, IPoi
     GameObject costText;
 
     [SerializeField]
-    GameObject Image;
-
-    [SerializeField]
     GameObject backGround;
 
     [SerializeField]
@@ -32,7 +29,6 @@ public class SlimeSpawnerInformation : MonoBehaviour, IPointerEnterHandler, IPoi
 
     [SerializeField]
     Text infoText;
-
 
     [SerializeField]
     GameObject score;
@@ -48,12 +44,11 @@ public class SlimeSpawnerInformation : MonoBehaviour, IPointerEnterHandler, IPoi
     float health;
     float value;
 
-
     // Update is called once per frame
     void Update()
     {
-        //If mouse over button Set text of text box, to display basic information. If mouse leaves button, turn text box off
-        if (currentHover == gameObject || currentHover == nameText || currentHover == costText || currentHover == Image || currentHover == backGround)
+        //If mouse over button Set text of text box, to display basic information. If mouse leaves button, turn text box off.  Bug where box flickers when over image in build, but not editor
+        if (currentHover == backGround)
         {
             cost = costObj.cost;
             health = monster.GetComponent<MonsterController>().maxHealth * upgrades.slimeHealthUpgrade;
@@ -79,8 +74,6 @@ public class SlimeSpawnerInformation : MonoBehaviour, IPointerEnterHandler, IPoi
             infoText.transform.parent.gameObject.SetActive(false);
             leftUI = true;
         }
-
-
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -94,6 +87,6 @@ public class SlimeSpawnerInformation : MonoBehaviour, IPointerEnterHandler, IPoi
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        currentHover = null;
+        currentHover = eventData.pointerCurrentRaycast.gameObject;
     }
 }

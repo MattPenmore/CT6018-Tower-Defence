@@ -48,23 +48,29 @@ public class SaveAndLoad : MonoBehaviour
     List<KeyValuePair<string, GameObject>> spawnerNames = new List<KeyValuePair<string, GameObject>>();
     List<KeyValuePair<string, GameObject>> monsterNames = new List<KeyValuePair<string, GameObject>>();
 
+    Shop gems;
 
     Vector3 offset = new Vector3();
 
     private void Start()
     {
+        gems = FindObjectOfType<Shop>();
+
+        //Create list of key value pairs for tower prefabs and their names
         foreach(GameObject prefabTower in prefabTowers)
         {
             KeyValuePair<string, GameObject> pair = new KeyValuePair<string, GameObject>(prefabTower.tag, prefabTower);
             towerNames.Add(pair);
         }
 
+        //Create list of key value pairs for spawner prefabs and their names
         foreach (GameObject prefabSpawner in prefabSpawners)
         {
             KeyValuePair<string, GameObject> pair = new KeyValuePair<string, GameObject>(prefabSpawner.tag, prefabSpawner);
             towerNames.Add(pair);
         }
 
+        //Create list of key value pairs for monster prefabs and their names
         foreach (GameObject prefabMonster in prefabMonsters)
         {
             KeyValuePair<string, GameObject> pair = new KeyValuePair<string, GameObject>(prefabMonster.GetComponent<MonsterController>().monsterName, prefabMonster);
@@ -76,6 +82,7 @@ public class SaveAndLoad : MonoBehaviour
 
     private void Update()
     {
+        //Open and close menu by pressing esc
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             savePanel.SetActive(true);
@@ -90,12 +97,13 @@ public class SaveAndLoad : MonoBehaviour
     {
         Save save = new Save();
 
+        //Get all cells
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Cell");
 
         foreach (GameObject go in gos)
         {
+            //Identify cell by it's x and y coordinates
             KeyValuePair<float, float> pair = new KeyValuePair<float, float>(go.GetComponent<GridCell>().coordinates.x, go.GetComponent<GridCell>().coordinates.y);
-
 
             //Save Rivers
             if (go.GetComponent<GridCell>().isRiver)
@@ -135,6 +143,7 @@ public class SaveAndLoad : MonoBehaviour
             }
         }
 
+        //Save how many of each tower is on the map
         foreach(TowerButtons button in numTowersTarget)
         {
             save.numTowers.Add(button.numTowers);
@@ -151,6 +160,7 @@ public class SaveAndLoad : MonoBehaviour
             }
         }
 
+        //Save how many of each spawner is on the map
         foreach (SpawnerButton button in numSpawnersTarget)
         {
             save.numSpawners.Add(button.numSpawners);
@@ -174,13 +184,12 @@ public class SaveAndLoad : MonoBehaviour
             }
         }
 
-        //Save Upgrades
+        //Save whether each upgrade button is availabe and if it has already been pressed
         foreach (GameObject upgrade in Upgrades)
         {
             if(upgrade.GetComponent<UpgradeButton>().isAvailable)
             {
-                save.upgradesAvailable.Add(true);
-                
+                save.upgradesAvailable.Add(true);                
             }
             else
             {
@@ -202,49 +211,48 @@ public class SaveAndLoad : MonoBehaviour
         save.upgradeValues = upgradeVariables.GetVariables();
 
         save.score = score.score;
-
+        save.gems = gems.Gems;
         return save;
     }
 
-
+    //Serialize all save information to save file
     public void SaveGame()
     {
-        // 1
         Save save = CreateSaveGameObject();
 
-        // 2
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
-        //FileStream file = File.Create(/*Application.persistentDataPath +*/ "C:/Users/Matt/Pictures/Idle Tower Farm/gamesave.save");
         bf.Serialize(file, save);
         file.Close();
-
-        // 3
 
         Debug.Log("Game Saved");
     }
 
     public void LoadGame()
     {
-        // 1
+        // If save file exists
         if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
         {
+            //Destroy all towers, spawners and monsters on the map
             ClearTowers();
+            ClearSpawners();
             ClearMonsters();
 
-            // 2
+            // Get information from save file
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
             Save save = (Save)bf.Deserialize(file);
             file.Close();
 
-            // 3
+            // Get all Cells
             GameObject[] gos = GameObject.FindGameObjectsWithTag("Cell");
 
             foreach (GameObject go in gos)
             {
+                //Identify cell by it's x and y coordinates
                 KeyValuePair<float, float> pair = new KeyValuePair<float, float>(go.GetComponent<GridCell>().coordinates.x, go.GetComponent<GridCell>().coordinates.y);
 
+                //If saved river tiles contains cell, make cell a river tile, otherwise make it not a bridge. If bridge in save, make it a bridge
                 if(save.riverTiles.ContainsKey(pair))
                 {
                     go.GetComponent<GridCell>().isRiver = true;
@@ -256,6 +264,7 @@ public class SaveAndLoad : MonoBehaviour
                     go.GetComponent<GridCell>().isBridge = false;
                 }
 
+                //If tile is obstacle in the save, make it an obstacle, otherwise make it not an obstacle
                 if(save.obstacles.Contains(pair))
                 {
                     go.GetComponent<GridCell>().isObstacle = true;
@@ -265,6 +274,7 @@ public class SaveAndLoad : MonoBehaviour
                     go.GetComponent<GridCell>().isObstacle = false;
                 }
 
+                //If tile is selectable in the save, make it selectable, otherwise make it not selectable
                 if (save.notSelectable.Contains(pair))
                 {
                     go.GetComponent<GridCell>().notSelectable = true;
@@ -277,8 +287,10 @@ public class SaveAndLoad : MonoBehaviour
                 //Load Towers
                 foreach(KeyValuePair<KeyValuePair<float, float>, string> tower in save.towerPositions)
                 {
+                    //If saved towers position matches cell position
                     if(tower.Key.Key == pair.Key && tower.Key.Value == pair.Value)
                     {
+                        //Get type of tower and spawn it.
                         foreach (KeyValuePair<string, GameObject> towerName in towerNames)
                         {
                             if(tower.Value == towerName.Key)
@@ -293,6 +305,7 @@ public class SaveAndLoad : MonoBehaviour
                     }
                 }
 
+                //Load number of each type of tower from save
                 int k = 0;
                 foreach (int num in save.numTowers)
                 {
@@ -300,6 +313,7 @@ public class SaveAndLoad : MonoBehaviour
                     k++;
                 }
 
+                //Load number of each type of spawner from save
                 k = 0;
                 foreach (int num in save.numSpawners)
                 {
@@ -307,13 +321,13 @@ public class SaveAndLoad : MonoBehaviour
                     k++;
                 }
 
-
-
                 //Load Spawners
                 foreach (KeyValuePair<KeyValuePair<float, float>, string> spawner in save.spawnerPositions)
                 {
+                    //If saved spawners position matches cell position
                     if (spawner.Key.Key == pair.Key && spawner.Key.Value == pair.Value)
                     {
+                        //Get type of spawner and spawn it.
                         foreach (KeyValuePair<string, GameObject> spawnerName in spawnerNames)
                         {
                             if (spawner.Value == spawnerName.Key)
@@ -323,7 +337,6 @@ public class SaveAndLoad : MonoBehaviour
                                 spawnerInstant.transform.parent = go.transform;
                                 spawnerInstant.transform.localPosition = spawnerName.Value.transform.position;
                                 spawnerInstant.transform.localRotation = spawnerName.Value.transform.rotation;
-
                             }
                         }
                     }
@@ -331,24 +344,29 @@ public class SaveAndLoad : MonoBehaviour
             }
 
             //Load Monsters
+            //For each type of monster
             foreach (KeyValuePair<string, GameObject> monsterName in monsterNames)
-            {
+            {              
                 int j = 0;
                 foreach (string name in save.monsterNames)
                 {
+                    //Check if saved monster matches current monster type
                     if (name == monsterName.Key)
                     {
+                        //Get monster position
                         Vector3 position = new Vector3(save.monsterPositionX[j], save.monsterPositionY[j], save.monsterPositionZ[j]);
+                        //Get closest cell to that position
                         RaycastHit hit;
                         Ray ray = new Ray(position, transform.TransformDirection(Vector3.down));
                         if (Physics.Raycast(ray, out hit))
                         {
                             Transform objectHit = hit.transform;
-
+                            
+                            //If got closest cell
                             if (objectHit.gameObject.tag == "Cell")
                             {
                                 closest = objectHit.gameObject;
-
+                                //Set y position of monster dependant on type
                                 if (monsterName.Key == "goblin")
                                 {
                                     offset = new Vector3(0, 5, 0);
@@ -365,17 +383,11 @@ public class SaveAndLoad : MonoBehaviour
                                 {
                                     offset = new Vector3(0, 8, 0);
                                 }
-
+                                //Spawn monster in center of cell
                                 GameObject monster = Instantiate(monsterName.Value, closest.transform.position + offset, monsterName.Value.transform.rotation);
                                 monster.transform.parent = null;
                             }
                         }
-
-                        //GameObject monster = Instantiate(monsterName.Value,position, monsterName.Value.transform.rotation);
-                        
-                        //monster.transform.parent = null;
-
-                        //monster.GetComponent<MonsterController>().needToPathfind = true;
                     }
                     j++;
                 }
@@ -391,11 +403,10 @@ public class SaveAndLoad : MonoBehaviour
 
             upgradeVariables.SetVariables(save.upgradeValues);
             score.score = save.score;
-            // 4
+            gems.Gems = save.gems;
 
             Debug.Log("Game Loaded");
 
-            //Unpause();
         }
         else
         {
@@ -408,6 +419,11 @@ public class SaveAndLoad : MonoBehaviour
         SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     void ClearTowers()
     {
         foreach (KeyValuePair<string, GameObject> towerName in towerNames)
@@ -416,6 +432,18 @@ public class SaveAndLoad : MonoBehaviour
             foreach (GameObject tower in towers)
             {
                 Destroy(tower);
+            }
+        }
+    }
+
+    void ClearSpawners()
+    {
+        foreach (KeyValuePair<string, GameObject> spawnerName in spawnerNames)
+        {
+            GameObject[] spawners = GameObject.FindGameObjectsWithTag(spawnerName.Key);
+            foreach (GameObject spawner in spawners)
+            {
+                Destroy(spawner);
             }
         }
     }

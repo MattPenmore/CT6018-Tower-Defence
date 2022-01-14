@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -58,7 +58,6 @@
     <Compile Include="Assets\Scripts\Towers\TurretController.cs" />
     <Compile Include="Assets\Scripts\Upgrades\UpgradeMenuController.cs" />
     <Compile Include="Assets\Scripts\UI\TowerInfo\RocketInformation.cs" />
-    <Compile Include="Assets\Scripts\Grid\CellSelector.cs" />
     <Compile Include="Assets\Scripts\Grid\CellMesh.cs" />
     <Compile Include="Assets\Scripts\MonsterOnClick.cs" />
     <Compile Include="Assets\LightningBolt\LightningBoltScript.cs" />
@@ -66,6 +65,7 @@
     <Compile Include="Assets\Scripts\UI\SpawnerButton.cs" />
     <Compile Include="Assets\Scripts\Towers\RocketController.cs" />
     <Compile Include="Assets\Scripts\Upgrades\Upgrades.cs" />
+    <Compile Include="Assets\Scripts\UI\Shop.cs" />
     <Compile Include="Assets\Scripts\UI\TowerInfo\HammerInformation.cs" />
     <Compile Include="Assets\Scripts\UI\SideMenu.cs" />
     <Compile Include="Assets\Scripts\Upgrades\UpgradeButton.cs" />
@@ -90,7 +90,6 @@
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Pathfind.cs" />
     <Compile Include="Assets\Scripts\Towers\HammerController.cs" />
-    <Compile Include="Assets\Scripts\UI\Shop.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\LightningBolt\Readme.txt" />

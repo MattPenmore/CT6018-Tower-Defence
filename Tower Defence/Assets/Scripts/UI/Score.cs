@@ -24,6 +24,7 @@ public class Score : MonoBehaviour
             score = 0;
         }
 
+        //Display score as text
         double exponent = (System.Math.Floor(System.Math.Log10(System.Math.Abs(score))));
         double mantissa = (score / System.Math.Pow(10, exponent));
 

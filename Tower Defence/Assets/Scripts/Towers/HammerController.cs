@@ -41,6 +41,7 @@ public class HammerController : MonoBehaviour
     {
         timeToHit -= Time.deltaTime;
 
+        //Check if enemies in range still exist. If they don't remove from list
         if (enemiesInRange.Count != 0)
         {
             for (int i = enemiesInRange.Count - 1; i >= 0; i--)
@@ -52,6 +53,7 @@ public class HammerController : MonoBehaviour
             }
         }
 
+        //If enemies in range, and can start hitting, start swinging hammer down
         if (enemiesInRange.Count != 0 && timeToHit <= 0 && !hammerSwingingUp)
         {
             hammerSwingingDown = true;
@@ -59,10 +61,14 @@ public class HammerController : MonoBehaviour
             timeSwingingDown = 0;
         }
 
+        //If hammer is currently swinging down
         if(hammerSwingingDown)
         {
+            //Rotate hammer from pivot
             timeSwingingDown += Time.deltaTime;
             hammerRotator.transform.localRotation = Quaternion.Lerp(hammerRotator.transform.localRotation, Quaternion.Euler(angleBottom, 0, 90), swingSpeedMultiplier * Time.deltaTime / (swingTimeDown * upgrades.hammerSpeedUpgrade));
+
+            //If finished swinging down, deal damage to all monsters in range and start swinging back up
             if (timeSwingingDown >= swingTimeDown)
             {
                 foreach (GameObject monster in enemiesInRange)
@@ -76,6 +82,7 @@ public class HammerController : MonoBehaviour
             }
         }
 
+        //Rotate hammer back up form pivot
         if(hammerSwingingUp)
         {
             timeSwingingUp += Time.deltaTime;

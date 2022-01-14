@@ -172,6 +172,7 @@ public class Upgrades : MonoBehaviour
         ogreRewardUpgrade *= 2;
     }
 
+    //Give upgrade variables to save file
     public List<int> GetVariables()
     {
         List<int> list = new List<int>();
@@ -213,6 +214,7 @@ public class Upgrades : MonoBehaviour
         return list;
     }
 
+    //Get upgrade variables from save file
     public void SetVariables(List<int> list)
     {
         turretRangeUpgrade = list[0];

@@ -321,7 +321,6 @@
 "Assets/LightningBolt/LightningBoltScript.cs"
 "Assets/Scripts/CameraMovement.cs"
 "Assets/Scripts/Grid/CellMesh.cs"
-"Assets/Scripts/Grid/CellSelector.cs"
 "Assets/Scripts/Grid/CreateRiver.cs"
 "Assets/Scripts/Grid/GridCell.cs"
 "Assets/Scripts/Grid/GridMetrics.cs"

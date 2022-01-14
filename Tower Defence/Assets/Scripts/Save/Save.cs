@@ -9,7 +9,6 @@ public class Save
     public Dictionary<KeyValuePair<float, float>, string> towerPositions = new Dictionary<KeyValuePair<float,float>, string>();
     public Dictionary<KeyValuePair<float, float>, string> spawnerPositions = new Dictionary<KeyValuePair<float, float>, string>();
 
-    //Monsters currently not being loaded due to bug with pathfinding
     public List<string> monsterNames = new List<string>();
     public List<float> monsterPositionX = new List<float>();
     public List<float> monsterPositionY = new List<float>();
@@ -17,7 +16,6 @@ public class Save
 
     public List<int> numTowers = new List<int>();
     public List<int> numSpawners = new List<int>();
-
 
     public Dictionary<KeyValuePair<float, float>, bool> riverTiles = new Dictionary<KeyValuePair<float, float>, bool>();
     public List<KeyValuePair<float, float>> obstacles = new List<KeyValuePair<float, float>>();
@@ -29,4 +27,5 @@ public class Save
     public List<int> upgradeValues;
 
     public double score;
+    public int gems;
 }

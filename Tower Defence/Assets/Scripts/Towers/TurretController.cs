@@ -39,8 +39,11 @@ public class TurretController : MonoBehaviour
     void Update()
     {
         timeToShoot -= Time.deltaTime;
+        //Set distance tower can do damage
         rangeTrigger.radius = (Range + upgrades.turretRangeUpgrade) * singleGridDistance + (singleGridDistance / 2);
-        if(enemiesInRange.Count != 0)
+
+        //Check if enemies in range still exist. If they don't remove from list
+        if (enemiesInRange.Count != 0)
         {
             for(int i = enemiesInRange.Count -1; i >= 0; i--)
             {
@@ -71,7 +74,8 @@ public class TurretController : MonoBehaviour
                 }
             }
 
-            if(enemiesInSight.Contains(target))
+            //If have a target and can see it, rotate to face target, otherwise find new target
+            if (enemiesInSight.Contains(target))
             {
                 Vector3 finalRotation = Quaternion.LookRotation(target.transform.position - turretRotator.transform.position).eulerAngles;
 
@@ -99,8 +103,10 @@ public class TurretController : MonoBehaviour
 
                 foreach (GameObject enem in enemiesInSight)
                 {
+                    //Get distance of monster from turret
                     Vector3 diff = enem.transform.position - transform.position;
                     float curDistance = diff.sqrMagnitude;
+                    //If closest, set as closest
                     if (curDistance < distance)
                     {
                         closest = enem;
@@ -108,15 +114,17 @@ public class TurretController : MonoBehaviour
                     }
                 }
 
+                //Make closest monster target.
                 target = closest;
 
+                //rotate to face target
                 Vector3 finalRotation = Quaternion.LookRotation(closest.transform.position - turretRotator.transform.position).eulerAngles;
 
                 Vector3 currentRotation = turretRotator.transform.eulerAngles;
                 currentRotation.y = Mathf.Lerp(currentRotation.y, finalRotation.y, Time.deltaTime * rotationSpeed);
                 turretRotator.transform.eulerAngles = currentRotation;
 
-
+                //Shoot target if able
                 Shoot();
             }
             else

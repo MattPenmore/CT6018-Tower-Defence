@@ -17,15 +17,16 @@ public class MonsterSpawning : MonoBehaviour
     float timeToSpawn;
 
     List<GameObject> spawnPoints;
-
     
     Upgrades upgrades;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Set spawnpoints to cells adjacent to spawner
         spawnPoints = transform.parent.GetComponent<GridCell>().adjacentCells;
 
+        //Set time between spawning dependant on type of monster
         upgrades = FindObjectOfType<Upgrades>();
         if (monsterName == "goblin")
         {
@@ -50,7 +51,8 @@ public class MonsterSpawning : MonoBehaviour
     {
         timeToSpawn -= Time.deltaTime;
 
-        if(timeToSpawn <= 0)
+        //If can spawn, spawn a monster. Set time between spawning dependant on type of monster
+        if (timeToSpawn <= 0)
         {
             int spawnNumber = Random.Range(0, spawnPoints.Count);
             GameObject monster = Instantiate(Monster, spawnPoints[spawnNumber].transform.position + monsterOffset, Monster.transform.rotation);
@@ -71,7 +73,6 @@ public class MonsterSpawning : MonoBehaviour
             {
                 timeToSpawn = spawnTime / upgrades.ogreSpawnUpgrade;
             }
-
         }
     }
 }

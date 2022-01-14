@@ -7,19 +7,15 @@ public class UpgradeMenuController : MonoBehaviour
 {
     public List<GameObject> buttons;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
+        //Order upgrade buttons by cost
         buttons = buttons.OrderBy(x => x.GetComponent<UpgradeButton>().cost).ToList();
 
         int i = 0;
 
+        //Set order of buttons as child of parent by their cost
         foreach(GameObject button in buttons)
         {
             button.transform.SetSiblingIndex(i);

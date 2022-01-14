@@ -52,6 +52,7 @@ public class GoblinSpawnerInformation : MonoBehaviour, IPointerEnterHandler, IPo
     // Update is called once per frame
     void Update()
     {
+        //If mouse over button Set text of text box, to display basic information. If mouse leaves button, turn text box off
         if (currentHover == gameObject || currentHover == nameText || currentHover == costText || currentHover == Image || currentHover == backGround)
         {
             cost = costObj.cost;
@@ -67,6 +68,7 @@ public class GoblinSpawnerInformation : MonoBehaviour, IPointerEnterHandler, IPo
                 "Spawn Rate: " + spawnRate.ToString();
             leftUI = false;
 
+            //Set position of textbox to be next to button
             infoText.transform.parent.transform.position = transform.position - new Vector3(transform.GetComponent<RectTransform>().sizeDelta.x, 0, 0) + new Vector3(-30, 0, 0);
 
             //Scale textbox to text

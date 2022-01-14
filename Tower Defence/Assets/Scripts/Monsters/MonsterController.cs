@@ -32,13 +32,13 @@ public class MonsterController : MonoBehaviour
 
     float timeToPathFind = 5;
     float timeUntilPathfind = 5;
-
     
     Upgrades upgrades;
 
     // Start is called before the first frame update
     void Start()
     {
+        //find players base
         mainBase = GameObject.FindGameObjectWithTag("Base");
         currentLifeTime = 0;
         pathfind = gameObject;
@@ -46,6 +46,8 @@ public class MonsterController : MonoBehaviour
         upgrades = FindObjectOfType<Upgrades>();
         Path = new GameObject[maxPathLength];
         rb = GetComponent<Rigidbody>();
+
+        //Set health and score values dependant on type of monster and upgrades
         if(monsterName == "goblin")
         {
             maxHealth *= upgrades.goblinHealthUpgrade;
@@ -67,6 +69,7 @@ public class MonsterController : MonoBehaviour
             scoreValue *= upgrades.ogreRewardUpgrade;
         }
         currentHealth = maxHealth;
+        //find path to players base
         PathFind();
 
     }
@@ -74,12 +77,13 @@ public class MonsterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //If monster has lived too long destroy it to prevent lag
         if(currentLifeTime >= maxLifetime)
         {
             Destroy(gameObject);
         }
 
-
+        //if monster has no health, give player gold and destroy it.
         if(currentHealth <= 0)
         {
             mainBase.GetComponent<Score>().score += scoreValue; 
@@ -92,18 +96,23 @@ public class MonsterController : MonoBehaviour
             needToPathfind = false;
         }
 
+        //If already have path to player base that doesn't need changing, continue along it, otherwise wait until time to pathfind
         FindCurrentCell();
         if (previousPathingCell != null && Path.Contains(currentCell) && !needToPathfind)
         {
+            //Get current position along path
             int index = System.Array.IndexOf(Path, currentCell);
+            //If reached base, take gold from player and destroy monster
             if (Path.Length == index + 1 || Path.Length == index + 2)
             {
                 mainBase.GetComponent<Score>().score -= scoreValue;
                 Destroy(gameObject);
             }
 
+            //If not reached base
             if(Path.Length > index + 2)
             {
+                //Get distance from center of cell, if not close enough to it, move towards it, otherwise move towards next cell on path
                 offset = Path[index].transform.position - transform.position + new Vector3(0, transform.position.y - Path[index].transform.position.y, 0);
                 if (offset.magnitude > 1f && previousCell != currentCell)
                 {
@@ -167,9 +176,10 @@ public class MonsterController : MonoBehaviour
     public void PathFind()
     {
         FindCurrentCell();
-
+        //If have previous path, check if contains cell, monster is on
         if (previousPathingCell != null && Path.Contains(currentCell))
         {
+            //Check if any of cells on path have become obstacles. If they have new path needed, otherwise continue using previous path.
             bool usePreviousPath = true;
             foreach (GameObject cell in Path)
             {
@@ -181,11 +191,14 @@ public class MonsterController : MonoBehaviour
             if (usePreviousPath)
             {
                 int index = System.Array.IndexOf(Path, currentCell);
-                if (Path.Length == index + 1)
+                //If reached base, take gold from player and destroy monster
+                if (Path.Length == index + 1 || Path.Length == index + 2)
                 {
+                    mainBase.GetComponent<Score>().score -= scoreValue;
                     Destroy(gameObject);
                 }
-
+                //If not reached base
+                //Get distance from center of cell, if not close enough to it, move towards it, otherwise move towards next cell on path
                 offset = Path[index].transform.position - transform.position + new Vector3(0, transform.position.y - Path[index].transform.position.y, 0);
                 if (offset.magnitude > 1f && previousCell != currentCell)
                 {
@@ -201,8 +214,10 @@ public class MonsterController : MonoBehaviour
             }
             else
             {
+                //Create new path from monster to base
                 Path = pathfind.GetComponent<Pathfind>().FindPath(currentCell, endPoint).ToArray();
                 int index = System.Array.IndexOf(Path, currentCell);
+                //If no path can be found, monster will just move towards players base, ignoring all obstacles
                 if (Path.Length == 0)
                 {
                     MoveTowards(endPoint.transform.position);
@@ -245,11 +260,14 @@ public class MonsterController : MonoBehaviour
             }
             else
             {
-                if (Path.Length == 1)
+                //If reached base, take gold from player and destroy monster
+                if (Path.Length == index + 1 || Path.Length == index + 2)
                 {
+                    mainBase.GetComponent<Score>().score -= scoreValue;
                     Destroy(gameObject);
                 }
-
+                //If not reached base
+                //Get distance from center of cell, if not close enough to it, move towards it, otherwise move towards next cell on path
                 offset = Path[index].transform.position - transform.position + new Vector3(0, transform.position.y - Path[index].transform.position.y, 0);
                 if (offset.magnitude > 1f)
                 {

@@ -39,13 +39,15 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void Update()
     {
-        if(currentHover == gameObject || currentHover == image)
+        //If mouse over button Set text of text box, to display basic information. If mouse leaves button, turn text box off
+        if (currentHover == gameObject || currentHover == image)
         {
             infoText.transform.parent.gameObject.SetActive(true);
             infoText.text = "Cost: " + cost.ToString() + "\n \n" +
                 text;
             leftUI = false;
 
+            //Set position of textbox to be next to button
             infoText.transform.parent.transform.position = transform.position - new Vector3(transform.GetComponent<RectTransform>().sizeDelta.x / 2, 0, 0) + new Vector3(-10, 0, 0);
 
             //Scale textbox to text
@@ -58,6 +60,7 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
 
+    //If button pressed, and player has enough gold, turn off text, take gold from player and do Upgrade
     public void ButtonPressed()
     {
         if(score.GetComponent<Score>().score >= cost)

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -394,24 +394,24 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 38.175438}
-      m_SelectedIDs: 2492feff
-      m_LastClickedID: -93660
-      m_ExpandedIDs: 2492feff829afeffacb2feffaeb2feffb6b2feffbeb2feffc6b2feffb6c7feff10c8feffc2cbfeffaed4feff28d6feff4cf2ffff7af5ffff1cf9ffff02faffff54fbffff96560000
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 121c0000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 54fbffffde570000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Gems
-        m_OriginalName: Gems
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -93660
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 7}
       m_SearchString: 
@@ -575,22 +575,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Gems
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 70
   m_LastFolders:
-  - Assets/Gems
+  - Assets/Scripts
   m_LastFoldersGridSize: 70
   m_LastProjectPath: C:\Users\Matt\Documents\GitHub\CT6018\Tower Defence
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 73}
-    m_SelectedIDs: 706a0000
-    m_LastClickedID: 27248
-    m_ExpandedIDs: 0000000084620000866200009a62000000ca9a3b
+    scrollPos: {x: 0, y: 137}
+    m_SelectedIDs: 34640000
+    m_LastClickedID: 25652
+    m_ExpandedIDs: 000000001c6400001e640000346400003e64000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -618,7 +618,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000008462000086620000
+    m_ExpandedIDs: 000000001c6400001e640000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

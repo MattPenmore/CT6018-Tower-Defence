@@ -29,6 +29,7 @@ public class MonsterOnClick : MonoBehaviour
     {
         bool canSpawn = true;
 
+        //If any of tower or spawner buttons are slected, can not spawn a monster
         foreach (Toggle tog in towerButtons)
         {
             if(tog.isOn)
@@ -45,6 +46,7 @@ public class MonsterOnClick : MonoBehaviour
             }
         }
 
+        //If press left mouse button and can spawn a monster
         if (Input.GetMouseButtonDown(0) && canSpawn)
         {
             RaycastHit hit;
@@ -56,6 +58,7 @@ public class MonsterOnClick : MonoBehaviour
 
                 foreach (GameObject go in gos)
                 {
+                    //if mouse is over cell, spawn a monster at that position
                     if (GameObject.ReferenceEquals(objectHit.gameObject, go) && !EventSystem.current.IsPointerOverGameObject())
                     {
                         if(!go.GetComponent<GridCell>().isObstacle)
@@ -66,7 +69,6 @@ public class MonsterOnClick : MonoBehaviour
                     }
                 }
             }
-
         }
     }
 }

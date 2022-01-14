@@ -9,7 +9,6 @@ public class GridCell : MonoBehaviour
     public MeshRenderer selector;
     public bool isSelector;
     public bool notSelectable;
-    public bool isTarget;
     public int distanceToBase;
     public bool isObstacle;
     public bool isEdge;
@@ -19,14 +18,12 @@ public class GridCell : MonoBehaviour
 
     public bool isRiver;
     public bool isBridge;
-
-    
+ 
     public int f => -g + h;
     public int g;
     public int h;
     public List<GameObject> adjacentCells;
     public GameObject previousCell;
-
 
     public bool spawnerPathsChecked = false;
     public bool towerPlacable = true;
@@ -40,6 +37,8 @@ public class GridCell : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //If cell is a river, make cell unselectable for tower and spawner placement. If cell isn't bridge, make it an obstacle for pathfinding
+        //Set colour of tiles for river and bridge
         if(isRiver)
         {
             notSelectable = true;
@@ -59,6 +58,7 @@ public class GridCell : MonoBehaviour
             cellMaterial.material.color = Color.white;
         }
 
+        //Set colour of selector to red or blue, depending on whether towers and spawners can be placed there.
         if (notSelectable)
         {
             selector.material.SetColor("_Color", Color.red);
@@ -68,6 +68,7 @@ public class GridCell : MonoBehaviour
             selector.material.SetColor("_Color", Color.blue);
         }
 
+        //enable and disable the selector
        if(isSelector)
         {
             selector.enabled = true;
@@ -83,6 +84,7 @@ public class GridCell : MonoBehaviour
             isEdge = false;
     }
 
+    //Get list of cells that are within one tile of current cell. This is all tiles where x,y and z are ono more than 1 different from current tiles coordinates
     public List<GameObject> FindAdjacentCells()
     {
         adjacentCells = new List<GameObject>();
@@ -91,7 +93,9 @@ public class GridCell : MonoBehaviour
 
         foreach (GameObject go in gos)
         {
+            //Get coordinates of cell
             Vector3 otherCoordinates = go.GetComponent<GridCell>().coordinates;
+            //If within range, add to list of adjacent cells
             if (Mathf.Abs(otherCoordinates.x - coordinates.x) <=1 && Mathf.Abs(otherCoordinates.y - coordinates.y) <= 1 && Mathf.Abs(otherCoordinates.z - coordinates.z) <=1)
             {
                 if (!(Mathf.Abs(otherCoordinates.x - coordinates.x) == 0) || !(Mathf.Abs(otherCoordinates.y - coordinates.y) == 0) && !(Mathf.Abs(otherCoordinates.z - coordinates.z) == 0))

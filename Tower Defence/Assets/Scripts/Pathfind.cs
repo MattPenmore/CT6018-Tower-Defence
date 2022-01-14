@@ -7,21 +7,10 @@ public class Pathfind : MonoBehaviour
 {
     GameObject currentCell;
     public int maxPathLength = 500;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-   
 
     public List<GameObject> FindPath(GameObject startPoint, GameObject endPoint)
     {
+        //Get list of all cells
         GameObject[] gos;
         gos = GameObject.FindGameObjectsWithTag("Cell");
 

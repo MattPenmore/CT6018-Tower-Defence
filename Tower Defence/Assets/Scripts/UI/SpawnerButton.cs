@@ -53,7 +53,7 @@ public class SpawnerButton : MonoBehaviour
             i++;
         }
 
-        //Make upgrade buttons available if requirements for number of towers is met.
+        //Make upgrade buttons available if requirements for number of spawners is met.
         foreach (KeyValuePair<UpgradeButton, int> button in upgradeButtonsPair)
         {
             if (button.Value <= numSpawners)
@@ -70,6 +70,8 @@ public class SpawnerButton : MonoBehaviour
 
     private void OnToggleValueChanged(bool isOn)
     {
+        //If Button is turned on, turn all other spawner buttons off, change colour to blue
+        //If button turned off, change colour to base.
         ColorBlock cb = spawnerToggle.colors;
         if (isOn == true)
         {
@@ -87,11 +89,13 @@ public class SpawnerButton : MonoBehaviour
 
     private void Update()
     {
+        //Get cost of buying a spawner
         cost = System.Math.Floor(baseValue * System.Math.Pow(exponenntialRatio, numSpawners));
 
         double exponent = (System.Math.Floor(System.Math.Log10(System.Math.Abs(cost))));
         double mantissa = (cost / System.Math.Pow(10, exponent));
 
+        //Display cost as text
         if (cost >= 1000000)
         {
             costText.text = mantissa.ToString("F3") + "e" + exponent.ToString();
@@ -101,6 +105,7 @@ public class SpawnerButton : MonoBehaviour
             costText.text = cost.ToString();
         }
 
+        //If button is on
         if (spawnerToggle.isOn)
         {
             RaycastHit hit;
@@ -110,10 +115,10 @@ public class SpawnerButton : MonoBehaviour
             {
                 Transform objectHit = hit.transform;
 
-                //Sell spawner
+                //If mouse is hovering over this type of spawner, and right mouse button is clicked, sell spawner
                 if (objectHit.gameObject.tag == spawnerName && Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
                 {
-                    
+                    //Set adjacent cells to be selectable for placing towers and spawners
                     objectHit.parent.GetComponent<GridCell>().adjacentCells = objectHit.parent.GetComponent<GridCell>().FindAdjacentCells();
                     foreach(GameObject cell in objectHit.parent.GetComponent<GridCell>().adjacentCells)
                     {
@@ -123,7 +128,7 @@ public class SpawnerButton : MonoBehaviour
                         }
                     }
 
-
+                    //Destroy selected spawner, and gain money equal to 1/5th of buy value
                     objectHit.parent.GetComponent<GridCell>().notSelectable = false;
                     objectHit.parent.GetComponent<GridCell>().isObstacle = false;
                     objectHit.parent = null;
@@ -141,15 +146,16 @@ public class SpawnerButton : MonoBehaviour
 
                 foreach (GameObject go in gos)
                 {
-
+                    //If cell is one being hovered over
                     if (GameObject.ReferenceEquals(objectHit.gameObject, go) && !EventSystem.current.IsPointerOverGameObject())
                     {
-                        //Check if space is large enough
+                        //turn cell selector on
                         go.GetComponent<GridCell>().isSelector = true;
+                        //Check if space is large enough to place spawner
                         go.GetComponent<GridCell>().adjacentCells = go.GetComponent<GridCell>().FindAdjacentCells();
 
                         bool adjacentsAvailable = true;
-                        
+                        //Check adjacent cells to make sure they are free
                         foreach (GameObject cell in go.GetComponent<GridCell>().adjacentCells)
                         {
                             cell.GetComponent<GridCell>().isSelector = true;
@@ -160,7 +166,7 @@ public class SpawnerButton : MonoBehaviour
                             }
                         }
 
-                        //Check if can path to target
+                        //Check if can path to players base
                         GameObject endPoint = mainBase.GetComponent<MainBase>().closest;
 
                         List<GameObject> Path = new List<GameObject>();
@@ -170,22 +176,27 @@ public class SpawnerButton : MonoBehaviour
                             isPlacable = false;
                         }
 
+                        //If left mouse button pressed, there is space for the spawner, can pathfind to players base, and have enough money, create spawner
                         if (Input.GetMouseButtonDown(0) && !go.GetComponent<GridCell>().notSelectable && adjacentsAvailable && isPlacable && score.GetComponent<Score>().score >= cost)
                         {
+                            //Spawn in correct position
                             GameObject spawnerInstant = Instantiate(Spawner);
                             spawnerInstant.transform.parent = go.transform;
                             spawnerInstant.transform.localPosition = Spawner.transform.position;
                             spawnerInstant.transform.localRotation = Spawner.transform.rotation;
                             go.GetComponent<GridCell>().notSelectable = true;
                             go.GetComponent<GridCell>().isObstacle = true;
+                            //remove gold from player
                             score.GetComponent<Score>().score -= cost;
                             numSpawners += 1;
 
+                            //Set adjacent cells, to not be able to place turrets or towers there
                             foreach (GameObject cell in go.GetComponent<GridCell>().adjacentCells)
                             {
                                 cell.GetComponent<GridCell>().notSelectable = true;                                
                             }
 
+                            //Tell all monsters to pathfind again
                             GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
                             foreach (GameObject monster in monsters)
                             {
@@ -210,6 +221,7 @@ public class SpawnerButton : MonoBehaviour
                     }
                     else
                     {
+                        //Turn cell selector off
                         go.GetComponent<GridCell>().isSelector = false;
                     }
                 }
@@ -217,6 +229,7 @@ public class SpawnerButton : MonoBehaviour
         }
         else
         {
+            //Set colour of button to base
             toggleBackground.color = new Color32(44, 44, 44, 255);
         }
     }

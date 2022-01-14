@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HexGrid : MonoBehaviour
 {
-
     public int width = 6;
     public int height = 6;
 
@@ -13,7 +12,6 @@ public class HexGrid : MonoBehaviour
     public GridCell cellPrefab;
 
     GridCell[] cells;
-
 
     private void Awake()
     {
@@ -26,10 +24,8 @@ public class HexGrid : MonoBehaviour
             {
                 CreateCell(x, z, i++);
             }
-
         }
     }
-
 
     private void Start()
     {
@@ -38,6 +34,7 @@ public class HexGrid : MonoBehaviour
 
     void CreateCell(int x, int z, int i)
     {
+        //Set world position of cell
         Vector3 position;
         position.x = (x + z * 0.5f - z / 2) * (GridMetrics.edgeRadius * 2f);
         position.y = 0f;
@@ -46,10 +43,11 @@ public class HexGrid : MonoBehaviour
         GridCell cell = cells[i] = Instantiate<GridCell>(cellPrefab);
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
-        //Set coordinates of cells. Shift to keep both xand z cooridnates on straight lines.
+        //Set coordinates of cells. Shift to keep both x and z cooridnates on straight lines.
         cell.GetComponent<GridCell>().coordinates = new Vector3(x - Mathf.FloorToInt(z / 2f),-(x - Mathf.FloorToInt(z / 2f)) - z ,z);
     }
 
+    //Create rivers after rest of grid is made.
     IEnumerator startCreatingRivers()
     {
         yield return new WaitForSeconds(0.1f);

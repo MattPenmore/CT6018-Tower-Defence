@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637768063359455576
-    m_Hash: 1276763713
+      ticks: 637778384601566451
+    m_Hash: 1848110244
   m_LockFileStatus:
     m_FilePath: C:/Users/Matt/Documents/GitHub/CT6018/Tower Defence/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637768063359497936
-    m_Hash: 706102902
+      ticks: 637778384601576199
+    m_Hash: 2527173589
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -198,10 +198,12 @@ m_ResolvedPackages:
     - 3.0.6
     - 3.0.7
     - 3.0.9
+    - 3.0.10
     compatible:
     - 3.0.7
     - 3.0.9
-    verified: 3.0.9
+    - 3.0.10
+    verified: 3.0.10
   dependencies:
   - name: com.unity.ext.nunit
     version: 1.0.6

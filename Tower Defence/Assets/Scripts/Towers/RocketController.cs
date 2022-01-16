@@ -152,7 +152,7 @@ public class RocketController : MonoBehaviour
 
     void Shoot()
     {
-        float angle = 15;
+        float angle = 25;
         if (Vector3.Angle(turretRotator.transform.forward, target.transform.position - turretRotator.transform.position) < angle && timeToShoot <= 0)
         {
 

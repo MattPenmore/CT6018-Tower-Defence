@@ -152,7 +152,7 @@ public class MachineGunController : MonoBehaviour
     void Shoot()
     {
         //If angle tower is facing, is close enough to facing target, Deal damage to target.
-        float angle = 15;
+        float angle = 25;
         if (Vector3.Angle(turretRotator.transform.forward, target.transform.position - turretRotator.transform.position) < angle && timeToShoot <= 0)
         {
 

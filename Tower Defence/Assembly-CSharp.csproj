@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\Towers\MachineGunController.cs" />
     <Compile Include="Assets\Scripts\Towers\ElectricController.cs" />
     <Compile Include="Assets\Scripts\UI\TowerInfo\TurretInformation.cs" />
+    <Compile Include="Assets\Scripts\Towers\TowerController.cs" />
     <Compile Include="Assets\Scripts\Towers\CircleRotate.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Pathfind.cs" />

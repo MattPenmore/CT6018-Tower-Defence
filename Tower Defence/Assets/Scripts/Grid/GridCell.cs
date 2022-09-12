@@ -19,7 +19,7 @@ public class GridCell : MonoBehaviour
     public bool isRiver;
     public bool isBridge;
  
-    public int f => -g + h;
+    public int f => g + h;
     public int g;
     public int h;
     public List<GameObject> adjacentCells;

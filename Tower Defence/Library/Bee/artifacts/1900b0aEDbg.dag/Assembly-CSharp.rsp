@@ -337,6 +337,7 @@
 "Assets/Scripts/Towers/HammerController.cs"
 "Assets/Scripts/Towers/MachineGunController.cs"
 "Assets/Scripts/Towers/RocketController.cs"
+"Assets/Scripts/Towers/TowerController.cs"
 "Assets/Scripts/Towers/TurretController.cs"
 "Assets/Scripts/UI/Score.cs"
 "Assets/Scripts/UI/Shop.cs"

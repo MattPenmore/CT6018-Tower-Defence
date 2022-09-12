@@ -2,12 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HammerController : MonoBehaviour
+public class HammerController : TowerController
 {
-    Upgrades upgrades;
-
-    public int damage = 100;
-
     public float hitSpeed;
     public float timeToHit;
     public float swingTimeDown;
@@ -17,41 +13,20 @@ public class HammerController : MonoBehaviour
 
     public float swingSpeedMultiplier;
 
-
-
     float angleBottom = 95f;
     float angleTop = 10;
 
     public GameObject hammerRotator;
-    public List<GameObject> enemiesInRange;
-
 
     bool hammerSwingingDown;
     bool hammerSwingingUp;
-    // Start is called before the first frame update
-    void Start()
-    {
-        enemiesInRange = new List<GameObject>();
-
-        upgrades = FindObjectOfType<Upgrades>();
-    }
 
     // Update is called once per frame
     void Update()
     {
         timeToHit -= Time.deltaTime;
 
-        //Check if enemies in range still exist. If they don't remove from list
-        if (enemiesInRange.Count != 0)
-        {
-            for (int i = enemiesInRange.Count - 1; i >= 0; i--)
-            {
-                if (enemiesInRange[i] == null)
-                {
-                    enemiesInRange.RemoveAt(i);
-                }
-            }
-        }
+        EnemyCheck();
 
         //If enemies in range, and can start hitting, start swinging hammer down
         if (enemiesInRange.Count != 0 && timeToHit <= 0 && !hammerSwingingUp)
@@ -95,21 +70,4 @@ public class HammerController : MonoBehaviour
         }
 
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Monster")
-        {
-            enemiesInRange.Add(other.gameObject);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Monster")
-        {
-            enemiesInRange.Remove(other.gameObject);
-        }
-    }
-
 }

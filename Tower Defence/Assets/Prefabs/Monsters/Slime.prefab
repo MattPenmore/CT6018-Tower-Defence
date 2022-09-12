@@ -112,7 +112,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterName: slime
-  maxPathLength: 500
+  maxLifetime: 500
+  currentLifeTime: 0
+  maxPathLength: 5000
   Path: []
   currentCell: {fileID: 0}
   endPoint: {fileID: 0}

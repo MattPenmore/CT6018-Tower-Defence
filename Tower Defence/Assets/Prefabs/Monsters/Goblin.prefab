@@ -115,7 +115,7 @@ MonoBehaviour:
   monsterName: goblin
   maxLifetime: 500
   currentLifeTime: 0
-  maxPathLength: 500
+  maxPathLength: 5000
   Path: []
   currentCell: {fileID: 0}
   endPoint: {fileID: 0}

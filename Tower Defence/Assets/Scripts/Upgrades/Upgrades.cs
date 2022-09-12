@@ -41,6 +41,10 @@ public class Upgrades : MonoBehaviour
     public int ogreHealthUpgrade;
     public int ogreRewardUpgrade;
 
+    public int GetTurretRangeUpgrade()
+    {
+        return turretRangeUpgrade;
+    }
 
     //Towers
     public void TurretIncreaseRange()

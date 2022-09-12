@@ -7,6 +7,7 @@ public class Pathfind : MonoBehaviour
 {
     GameObject currentCell;
     public int maxPathLength = 500;
+    static float singleGridDistance = 17.3333f;
 
     public List<GameObject> FindPath(GameObject startPoint, GameObject endPoint)
     {
@@ -25,7 +26,6 @@ public class Pathfind : MonoBehaviour
         currentCell.GetComponent<GridCell>().g = 0;
         currentCell.GetComponent<GridCell>().h = GetEstimatedPathCost(currentCell.transform.position, endPoint.transform.position);
 
-
         while (openPathCells.Count != 0)
         {
             //sort open list
@@ -37,8 +37,8 @@ public class Pathfind : MonoBehaviour
             closedPathCells.Add(currentCell);
 
             //Limit number of hexagons that can be checked
-            int g = currentCell.GetComponent<GridCell>().g - 1;
-            if(g < -maxPathLength)
+            int g = currentCell.GetComponent<GridCell>().g + 1;
+            if(g > maxPathLength)
             {
                 break;
             }
@@ -62,9 +62,9 @@ public class Pathfind : MonoBehaviour
                 //Check if  path to current cell can be reduced. if not continue. If so reduce it and break.
                 if(closedPathCells.Contains(adjacentCell))
                 {
-                    if (adjacentCell.GetComponent<GridCell>().g > currentCell.GetComponent<GridCell>().g + 1)
+                    if (adjacentCell.GetComponent<GridCell>().g < currentCell.GetComponent<GridCell>().g - 1)
                     {
-                        currentCell.GetComponent<GridCell>().g = adjacentCell.GetComponent<GridCell>().g - 1;
+                        currentCell.GetComponent<GridCell>().g = adjacentCell.GetComponent<GridCell>().g + 1;
                         currentCell.GetComponent<GridCell>().previousCell = adjacentCell;
                         closedPathCells.Remove(currentCell);
 
@@ -82,13 +82,11 @@ public class Pathfind : MonoBehaviour
                     adjacentCell.GetComponent<GridCell>().previousCell = currentCell;
                 }
                 //Otherwise check if F value can be lowered with current G
-                else if (adjacentCell.GetComponent<GridCell>().f > g + adjacentCell.GetComponent<GridCell>().h)
+                else if (adjacentCell.GetComponent<GridCell>().g > g)
                 {
                     adjacentCell.GetComponent<GridCell>().g = g;
                     adjacentCell.GetComponent<GridCell>().previousCell = currentCell;
                 }
-
-
             }
         }
 
@@ -99,20 +97,17 @@ public class Pathfind : MonoBehaviour
             currentCell = endPoint;
             finalPathCells.Add(currentCell);
 
-            for (int i = endPoint.GetComponent<GridCell>().g + 1; i <= 0; i++)
+            for (int i = endPoint.GetComponent<GridCell>().g - 1; i >= 0; i--)
             {
-                foreach(GameObject cell in closedPathCells)
+                foreach (GameObject cell in closedPathCells)
                 {
-                    if(cell.GetComponent<GridCell>().g == i && cell.GetComponent<GridCell>().adjacentCells.Contains(currentCell))
+                    if (cell.GetComponent<GridCell>().g == i && cell.GetComponent<GridCell>().adjacentCells.Contains(currentCell))
                     {
                         currentCell = cell;
                         finalPathCells.Add(currentCell);
+                        break;
                     }
                 }
-
-                //currentCell = closedPathCells.Find(x => x.GetComponent<GridCell>().g == i && GameObject.ReferenceEquals(currentCell.GetComponent<GridCell>().previousCell, currentCell));
-                //finalPathCells.Add(currentCell);
-                //currentCell.GetComponent<GridCell>().isSelector = true;
             }
             finalPathCells.Reverse();
         }
@@ -121,8 +116,8 @@ public class Pathfind : MonoBehaviour
 
     static int GetEstimatedPathCost(Vector3 currentPosition, Vector3 endPosition)
     {
-        Vector3 diff = currentPosition - endPosition;
+        Vector3 diff = (currentPosition - endPosition);
         float curDistance = diff.sqrMagnitude;
-        return Mathf.FloorToInt(curDistance);
+        return Mathf.FloorToInt(curDistance / singleGridDistance);
     }
 }

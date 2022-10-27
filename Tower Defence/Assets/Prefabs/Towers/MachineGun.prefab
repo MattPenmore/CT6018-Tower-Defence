@@ -132,10 +132,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerNames: []
   spawnerNames: []
-  damage: 100
+  upgradeName: 
+  damage: 20
   Range: 3
   rangeTrigger: {fileID: 4029304390968254751}
-  shootSpeed: 0.5
+  shootSpeed: 1
   timeToShoot: 0
   rotationSpeed: 5
   turretRotator: {fileID: 5524633362867976398}

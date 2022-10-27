@@ -84,7 +84,7 @@ public class TowerButtons : MonoBehaviour
         if (isOn == true)
         {
             toggleBackground.color = Color.blue;
-            foreach(Toggle tog in otherTowersToggle)
+            foreach (Toggle tog in otherTowersToggle)
             {
                 tog.isOn = false;
             }
@@ -92,7 +92,7 @@ public class TowerButtons : MonoBehaviour
         else
         {
             toggleBackground.color = new Color32(44, 44, 44, 255)/*Color.white*/;
-        }
+        }   
     }
 
     private void Update()
@@ -189,11 +189,16 @@ public class TowerButtons : MonoBehaviour
                                 //Check if spawners can all path to players base, if they can't a tower can not be placed
                                 foreach (GameObject spawner in Spawners)
                                 {
-                                    List<GameObject> Path = new List<GameObject>();
-                                    Path = gameObject.GetComponent<Pathfind>().FindPath(spawner.transform.parent.gameObject, endPoint);
-                                    if (Path.Count == 0)
+
+                                    if (spawner.GetComponent<MonsterSpawning>().Path.Contains<GameObject>(go))
                                     {
-                                        isPlacable = false;
+                                        List<GameObject> Path = new List<GameObject>();
+                                        Path = gameObject.GetComponent<Pathfind>().FindPath(endPoint, spawner.transform.parent.gameObject.GetComponent<GridCell>().adjacentCells[0]);
+                                        if (Path.Count == 0)
+                                        {
+                                            isPlacable = false;
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -229,6 +234,12 @@ public class TowerButtons : MonoBehaviour
                                             button.Key.isAvailable = true;
                                         }
                                     }
+
+                                    foreach (GameObject spawner in Spawners)
+                                    {
+
+                                        spawner.GetComponent<MonsterSpawning>().Pathfind();
+                                    }
                                 }
                                 else
                                 {
@@ -251,7 +262,15 @@ public class TowerButtons : MonoBehaviour
                         go.GetComponent<GridCell>().isSelector = false;                      
                     }
                 }
-            }            
+            }
+            else
+            {
+                foreach (GameObject go in gos)
+                {
+                    //turn cell selector off
+                    go.GetComponent<GridCell>().isSelector = false;
+                }
+            }
         }
         else
         {

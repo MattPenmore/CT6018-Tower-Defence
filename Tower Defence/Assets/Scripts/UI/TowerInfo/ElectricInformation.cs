@@ -74,7 +74,7 @@ public class ElectricInformation : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         if (eventData.pointerCurrentRaycast.gameObject != null)
         {
-            Debug.Log("Mouse Over: " + eventData.pointerCurrentRaycast.gameObject.name);
+            //Debug.Log("Mouse Over: " + eventData.pointerCurrentRaycast.gameObject.name);
             currentHover = eventData.pointerCurrentRaycast.gameObject;
         }
     }

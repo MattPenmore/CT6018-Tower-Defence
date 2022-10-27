@@ -59,7 +59,7 @@ public class OgreSpawnerInformation : MonoBehaviour, IPointerEnterHandler, IPoin
             value = monster.GetComponent<MonsterController>().scoreValue * upgrades.ogreRewardUpgrade;
             spawnRate = spawner.GetComponent<MonsterSpawning>().spawnTime / upgrades.ogreSpawnUpgrade;
             infoText.transform.parent.gameObject.SetActive(true);
-            infoText.text = "ogre Spawner \n \n" + "Cost: " + cost.ToString() + "\n" +
+            infoText.text = "Ogre Spawner \n \n" + "Cost: " + cost.ToString() + "\n" +
                 "Health: " + health.ToString() + "\n" +
                 "Speed: " + speed.ToString() + "\n" +
                 "Value: " + value.ToString() + "\n" +
@@ -83,7 +83,7 @@ public class OgreSpawnerInformation : MonoBehaviour, IPointerEnterHandler, IPoin
     {
         if (eventData.pointerCurrentRaycast.gameObject != null)
         {
-            Debug.Log("Mouse Over: " + eventData.pointerCurrentRaycast.gameObject.name);
+            //Debug.Log("Mouse Over: " + eventData.pointerCurrentRaycast.gameObject.name);
             currentHover = eventData.pointerCurrentRaycast.gameObject;
         }
     }

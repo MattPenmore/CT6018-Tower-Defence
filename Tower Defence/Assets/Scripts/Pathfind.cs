@@ -29,7 +29,7 @@ public class Pathfind : MonoBehaviour
         while (openPathCells.Count != 0)
         {
             //sort open list
-            openPathCells = openPathCells.OrderBy(x => x.GetComponent<GridCell>().f).ThenByDescending(x => x.GetComponent<GridCell>().g).ToList();
+            openPathCells = openPathCells.OrderBy(x => x.GetComponent<GridCell>().h).ThenByDescending(x => x.GetComponent<GridCell>().g).ToList();
             currentCell = openPathCells[0];
 
             //Remove current cell from open list and add to closed list
@@ -62,14 +62,14 @@ public class Pathfind : MonoBehaviour
                 //Check if  path to current cell can be reduced. if not continue. If so reduce it and break.
                 if(closedPathCells.Contains(adjacentCell))
                 {
-                    if (adjacentCell.GetComponent<GridCell>().g < currentCell.GetComponent<GridCell>().g - 1)
-                    {
-                        currentCell.GetComponent<GridCell>().g = adjacentCell.GetComponent<GridCell>().g + 1;
-                        currentCell.GetComponent<GridCell>().previousCell = adjacentCell;
-                        closedPathCells.Remove(currentCell);
+                    //if (adjacentCell.GetComponent<GridCell>().g < currentCell.GetComponent<GridCell>().g - 1)
+                    //{
+                    //    currentCell.GetComponent<GridCell>().g = adjacentCell.GetComponent<GridCell>().g + 1;
+                    //    currentCell.GetComponent<GridCell>().previousCell = adjacentCell;
+                    //    closedPathCells.Remove(currentCell);
 
-                        break;
-                    }
+                    //    break;
+                    //}
 
                     continue;
                 }
@@ -117,7 +117,7 @@ public class Pathfind : MonoBehaviour
     static int GetEstimatedPathCost(Vector3 currentPosition, Vector3 endPosition)
     {
         Vector3 diff = (currentPosition - endPosition);
-        float curDistance = diff.sqrMagnitude;
+        float curDistance = Vector3.Magnitude(diff);
         return Mathf.FloorToInt(curDistance / singleGridDistance);
     }
 }

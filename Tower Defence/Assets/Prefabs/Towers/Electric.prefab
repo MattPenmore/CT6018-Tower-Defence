@@ -1950,13 +1950,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687082ba8189ef341aa17345ebaea035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageFinal: 0
-  damage: 250
+  towerNames: []
+  spawnerNames: []
+  upgradeName: 
+  damage: 50
   Range: 5
   rangeTrigger: {fileID: 134979247079858894}
-  shockSpeed: 1
-  timeToShock: 0
+  shootSpeed: 0
+  timeToShoot: 0
+  rotationSpeed: 0
+  turretRotator: {fileID: 0}
   enemiesInRange: []
+  enemiesInSight: []
+  target: {fileID: 0}
+  shootAnim: {fileID: 0}
+  shockSpeed: 2
+  timeToShock: 0
 --- !u!1 &6862481085556645781
 GameObject:
   m_ObjectHideFlags: 0

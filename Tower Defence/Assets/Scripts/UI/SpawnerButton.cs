@@ -182,6 +182,10 @@ public class SpawnerButton : MonoBehaviour
                             //Spawn in correct position
                             GameObject spawnerInstant = Instantiate(Spawner);
                             spawnerInstant.transform.parent = go.transform;
+                            spawnerInstant.GetComponent<MonsterSpawning>().currentCell = go;
+                            spawnerInstant.GetComponent<MonsterSpawning>().mainBase = GameObject.FindGameObjectWithTag("Base");
+                            spawnerInstant.GetComponent<MonsterSpawning>().endPoint = mainBase.GetComponent<MainBase>().closest;
+                            spawnerInstant.GetComponent<MonsterSpawning>().Pathfind();
                             spawnerInstant.transform.localPosition = Spawner.transform.position;
                             spawnerInstant.transform.localRotation = Spawner.transform.rotation;
                             go.GetComponent<GridCell>().notSelectable = true;
@@ -224,6 +228,14 @@ public class SpawnerButton : MonoBehaviour
                         //Turn cell selector off
                         go.GetComponent<GridCell>().isSelector = false;
                     }
+                }
+            }
+            else
+            {
+                foreach (GameObject go in gos)
+                {
+                    //turn cell selector off
+                    go.GetComponent<GridCell>().isSelector = false;
                 }
             }
         }

@@ -8786,7 +8786,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 526293969}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999998
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -14802,7 +14802,7 @@ MonoBehaviour:
   cost: 0
   numTowers: 0
   baseValue: 10
-  exponenntialRatio: 1.25
+  exponenntialRatio: 1.1
   score: {fileID: 965706197}
   costText: {fileID: 974263748}
   upgradeButtons:
@@ -14837,7 +14837,7 @@ MonoBehaviour:
   cost: 0
   numSpawners: 0
   baseValue: 100
-  exponenntialRatio: 1.25
+  exponenntialRatio: 1.1
   upgradeButtons:
   - {fileID: 772758670}
   - {fileID: 1842880581}
@@ -14888,7 +14888,7 @@ MonoBehaviour:
   cost: 0
   numTowers: 0
   baseValue: 10000
-  exponenntialRatio: 1.25
+  exponenntialRatio: 1.1
   score: {fileID: 965706197}
   costText: {fileID: 347381828}
   upgradeButtons:
@@ -14954,7 +14954,7 @@ MonoBehaviour:
   cost: 1000
   numTowers: 0
   baseValue: 1000
-  exponenntialRatio: 1.25
+  exponenntialRatio: 1.1
   score: {fileID: 965706197}
   costText: {fileID: 817160556}
   upgradeButtons:
@@ -14995,7 +14995,7 @@ MonoBehaviour:
   cost: 0
   numTowers: 0
   baseValue: 100000
-  exponenntialRatio: 1.25
+  exponenntialRatio: 1.1
   score: {fileID: 965706197}
   costText: {fileID: 605038914}
   upgradeButtons:
@@ -15036,7 +15036,7 @@ MonoBehaviour:
   cost: 0
   numTowers: 0
   baseValue: 100
-  exponenntialRatio: 1.25
+  exponenntialRatio: 1.1
   score: {fileID: 965706197}
   costText: {fileID: 427097598}
   upgradeButtons:
@@ -15071,7 +15071,7 @@ MonoBehaviour:
   cost: 0
   numSpawners: 0
   baseValue: 100000
-  exponenntialRatio: 1.25
+  exponenntialRatio: 1.1
   upgradeButtons:
   - {fileID: 1306229371}
   - {fileID: 1754322015}
@@ -15103,7 +15103,7 @@ MonoBehaviour:
   cost: 0
   numSpawners: 0
   baseValue: 10000
-  exponenntialRatio: 1.25
+  exponenntialRatio: 1.1
   upgradeButtons:
   - {fileID: 2015221401}
   - {fileID: 1980047657}
@@ -15135,7 +15135,7 @@ MonoBehaviour:
   cost: 0
   numSpawners: 0
   baseValue: 1000
-  exponenntialRatio: 1.25
+  exponenntialRatio: 1.1
   upgradeButtons:
   - {fileID: 694507562}
   - {fileID: 1980047657}

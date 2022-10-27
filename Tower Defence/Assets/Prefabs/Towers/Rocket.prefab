@@ -541,7 +541,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerNames: []
   spawnerNames: []
-  damage: 4000
+  upgradeName: 
+  damage: 800
   Range: 6
   rangeTrigger: {fileID: 9210862764029168197}
   shootSpeed: 10

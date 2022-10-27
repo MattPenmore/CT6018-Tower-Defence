@@ -20,9 +20,15 @@ public class MonsterSpawning : MonoBehaviour
     
     Upgrades upgrades;
 
+    public GameObject[] Path;
+    public GameObject currentCell;
+    public GameObject endPoint;
+    public GameObject mainBase;
+
     // Start is called before the first frame update
     void Start()
     {
+
         //Set spawnpoints to cells adjacent to spawner
         spawnPoints = transform.parent.GetComponent<GridCell>().adjacentCells;
 
@@ -74,5 +80,11 @@ public class MonsterSpawning : MonoBehaviour
                 timeToSpawn = spawnTime / upgrades.ogreSpawnUpgrade;
             }
         }
+    }
+
+    public void Pathfind()
+    {
+        //FindCurrentCell();
+        Path = gameObject.GetComponent<Pathfind>().FindPath(currentCell, endPoint).ToArray();
     }
 }

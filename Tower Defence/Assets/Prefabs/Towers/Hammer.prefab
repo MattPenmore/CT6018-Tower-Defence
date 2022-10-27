@@ -552,14 +552,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c05769263eb1b4ebf38b9ebbf7eca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1500
+  towerNames: []
+  spawnerNames: []
+  upgradeName: 
+  damage: 300
+  Range: 0
+  rangeTrigger: {fileID: 0}
+  shootSpeed: 0
+  timeToShoot: 0
+  rotationSpeed: 0
+  turretRotator: {fileID: 0}
+  enemiesInRange: []
+  enemiesInSight: []
+  target: {fileID: 0}
+  shootAnim: {fileID: 0}
   hitSpeed: 5
   timeToHit: 0
   swingTimeDown: 1
   swingTimeUp: 3
   swingSpeedMultiplier: 2.2
   hammerRotator: {fileID: 7329660828759922430}
-  enemiesInRange: []
 --- !u!135 &846183946341578748
 SphereCollider:
   m_ObjectHideFlags: 0

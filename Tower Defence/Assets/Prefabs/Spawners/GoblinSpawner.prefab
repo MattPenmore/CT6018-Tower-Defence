@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 2776331800869933594}
   - component: {fileID: 3001708856530354151}
   - component: {fileID: -5209378761589993847}
+  - component: {fileID: 6164230080286355651}
   m_Layer: 0
   m_Name: GoblinSpawner
   m_TagString: Goblin Spawner
@@ -363,13 +364,23 @@ MonoBehaviour:
   spawnTime: 5
   monsterOffset: {x: 0, y: 5, z: 0}
   timeToSpawn: 0
-  spawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  Path: []
+  currentCell: {fileID: 0}
+  endPoint: {fileID: 0}
+  mainBase: {fileID: 0}
+--- !u!114 &6164230080286355651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2776331800869933593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5390ef0404e4cd24fb560a142861f264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxPathLength: 500
 --- !u!1 &2776331800876081858
 GameObject:
   m_ObjectHideFlags: 0

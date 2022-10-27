@@ -75,7 +75,7 @@ public class RocketInformation : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         if (eventData.pointerCurrentRaycast.gameObject != null)
         {
-            Debug.Log("Mouse Over: " + eventData.pointerCurrentRaycast.gameObject.name);
+            //Debug.Log("Mouse Over: " + eventData.pointerCurrentRaycast.gameObject.name);
             currentHover = eventData.pointerCurrentRaycast.gameObject;
         }
     }
